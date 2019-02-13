@@ -12,7 +12,7 @@ Clone the repo into your working directory: `git clone <repo-url>`
     * Checkout branch: `git checkout <branch_name>`, should probably always checkout master
 3. Rename your local branch: `git branch -m <new-name>`
     * this is important so you dont try to merge to master once you're finished working
-3. Make youre changes and do your testing
+3. Make your changes and do your testing
 4. Occasionally pull down master to merge onto your branch to stay up to date with the project.
     * Merge master onto current local branch: `git pull origin master`
     * youll have to enter a commit msg for the merge, and solve merge conflicts if they are there
