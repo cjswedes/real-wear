@@ -1,2 +1,2 @@
 # real-wear
-visualize yourself with clothes on
+visualize yourself with old museum clothes
