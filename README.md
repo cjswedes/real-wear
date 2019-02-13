@@ -1,5 +1,5 @@
 # real-wear
-visualize yourself with old museum clothes
+visualize yourself with old museum clothes...or whatever we actualy do...
 
 #### Project Description
 
