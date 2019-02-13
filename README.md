@@ -16,7 +16,7 @@ Clone the repo into your working directory: `git clone <repo-url>`
 4. Occasionally pull down master to merge onto your branch to stay up to date with the project.
     * Merge master onto current local branch: `git pull origin master`
     * youll have to enter a commit msg for the merge, and solve merge conflicts if they are there
-    * make sure you do this before you do a Push Request!
+    * make sure you do this before you do a Pull Request!
 5. Add all your files to the staged area
     * `git add .` or `git add -A`
 6. Make a commit of your files
