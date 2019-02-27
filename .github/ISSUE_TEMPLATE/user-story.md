@@ -7,7 +7,8 @@ assignees: ''
 
 ---
 
+What does the user do?
 What action will our system perform?
 What tasks should be done to accomplish that?
-- [x] Task A
-- [ ] Task B
+- [ ] Backend:
+- [ ] Frontend:
