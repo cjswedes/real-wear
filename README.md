@@ -1,6 +1,22 @@
 # real-wear
 visualize yourself with old museum clothes...or whatever we actualy do...
 
+#### Software Requirements
+
+Django 2.1.7
+Python >3.5.2
+
+#### Sofwtare Workflow
+To run the server, use
+`manage.py runserver --settings=ramsay.settings.dev
+
+Make migrations with 
+`manage.py makemigrations --settings=ramsay.settings.prod
+
+Migrate with
+`manage.py migrate --settings=ramsay.settings.prod
+
+
 #### Project Description
 
 #### Git practices and flow
