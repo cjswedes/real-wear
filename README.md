@@ -1,12 +1,34 @@
 # real-wear
 visualize yourself with old museum clothes...or whatever we actualy do...
+## Software Development
 
-#### Software Requirements
+Ensure you have the following packages installed:
 
-Django 2.1.7
-Python >3.5.2
+*Django      2.1.7
+*Python     >3.5.2
+*PostgreSQL  9.5.14
 
-#### Sofwtare Workflow
+and the following pip installations:
+
+*psycopg2-binary=2.7.7
+*psycopg2=2.7.7
+*python-decouple=3.1
+
+Note that the equal signs denote the versions of the pip packages.
+
+### Setup
+
+Use these resources to help setup:
+
+https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04
+https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
+
+Make sure you set up the appropriate .env file or ask for the appropriate .env file. 
+
+### Sofwtare Workflow
+
+Workflow is split into different setting files. Setting files are split into development (dev), testing (test), staging (stage), and production (prod). Specify appropriate settings files when running tests. Each setting file imports from the overall base setting file.
+
 To run the server, use
 `manage.py runserver --settings=ramsay.settings.dev
 
