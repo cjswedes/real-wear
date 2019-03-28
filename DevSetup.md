@@ -25,6 +25,9 @@ Check the digital ocean link in the proper readme.
 ~~I am not sure how to do this. I must have done it in the past since I have it already.
 We want 9.5 for the version.  Google how to get it and then add documentation here if you
 are the first one to do it :)~~
+###Populate the DB
+1. run `python manage.py flush --settings=ramsay.settings.dev` to flush your DB clear of all data
+2. run `python manage.py populate_db --settings=ramsay.settings.dev` to run the population script
 
 One thing you will for sure have to do is setup the database so that we can connect to it:
 I used the pgAdminIII program on your computer to do this:
