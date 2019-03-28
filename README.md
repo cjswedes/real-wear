@@ -11,7 +11,6 @@ Ensure you have the following packages installed:
 and the following pip installations:
 
 * psycopg2-binary=2.7.7
-* psycopg2=2.7.7
 * python-decouple=3.1
 
 Note that the equal signs denote the versions of the pip packages.
@@ -66,3 +65,4 @@ Clone the repo into your working directory: `git clone <repo-url>`
 8. Fill out the Pull Request form: just link to the issue #
 8. Get it reviewed: (just have one other person look at it)
 9. Get it merged into master
+

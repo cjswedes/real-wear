@@ -1,3 +1,4 @@
+
 ## Pycharm
 I chose pycharm as my IDE because I know it well. The community edition works perfectly
 for python development.
@@ -20,9 +21,10 @@ DB_HOST=127.0.0.1
 ```
 
 ##setup postgres
-I am not sure how to do this. I must have done it in the past since I have it already.
+Check the digital ocean link in the proper readme.
+~~I am not sure how to do this. I must have done it in the past since I have it already.
 We want 9.5 for the version.  Google how to get it and then add documentation here if you
-are the first one to do it :)
+are the first one to do it :)~~
 
 One thing you will for sure have to do is setup the database so that we can connect to it:
 I used the pgAdminIII program on your computer to do this:
@@ -48,5 +50,4 @@ Now you need to create a login role so we can access it with the admin usrname a
 These are just the steps that I took, there might be other ways to get here.
 If there are errors, read them all to see what causes the problem,
 then try to find a solution.
-
 
