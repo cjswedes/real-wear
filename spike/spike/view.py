@@ -12,3 +12,6 @@ def home(request):
 
 def visual(request):
     return render(request, 'visual.html')
+
+def about(request):
+    return render(request, 'about.html')

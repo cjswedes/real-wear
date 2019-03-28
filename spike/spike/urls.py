@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # url('navbar', view.navbar),
     url(r'^$',view.home),
-    url('visual', view.visual)
+    url('visual', view.visual),
+    url('about', view.about)
 ]
 
 
