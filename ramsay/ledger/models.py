@@ -28,9 +28,13 @@ class Ledger(models.Model):
 
 	#ledger file name -- not used
 	DEPARTMENTS = ("agriculture", "tools", "textiles")
-	DEPARTMENT_CHOICES = ( for index, item in enumerate(DEPARTMENTS) (index, item) )
+	DEPARTMENT_CHOICES = (
+		(1, "agriculture")
+	)
 
-	department   = models.CharField(choices=DEPARTMENT_CHOICES, default=DEPARTMENTS[1])
+#( for index, item in enumerate(DEPARTMENTS) (index, item) )
+
+	department   = models.CharField(max_length=255)#models.CharField(choices=DEPARTMENT_CHOICES, default=DEPARTMENTS[1])
 
 	customer_first = models.CharField(max_length=64)
 	customer_last  = models.CharField(max_length=64)
@@ -43,7 +47,7 @@ class Ledger(models.Model):
 	description        = models.TextField()
 
 	#citation
-	citation = models.ManyToManyField(to=Citation, related_name='ledger_entries', on_delete=models.CASCADE)
+	citation = models.ManyToManyField(to=Citation, related_name='ledger_entries')#, on_delete=models.CASCADE)
 
 	unit_number = models.IntegerField()
 	unit_suffix = models.CharField(max_length=64)
@@ -51,8 +55,8 @@ class Ledger(models.Model):
 	original_price = models.IntegerField(default=0.0) #price in pence. adjust manually once taken
 	#price_suffix = models.CharField(max_length=64) #can make this choices as well for the time?
 
-	modern_pounds = models.DecimalField(decimal_places=2)
-	modern_dollars = models.DecimalField(decimal_places=2)
+	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2)
+	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2)
 
 	analytics = models.TextField()
 

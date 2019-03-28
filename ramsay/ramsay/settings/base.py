@@ -39,6 +39,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 CUSTOM_APPS = [
+    'ledger.apps.LedgerConfig'
 ]
 INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS
 
