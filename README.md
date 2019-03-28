@@ -4,15 +4,15 @@ visualize yourself with old museum clothes...or whatever we actualy do...
 
 Ensure you have the following packages installed:
 
-*Django      2.1.7
-*Python     >3.5.2
-*PostgreSQL  9.5.14
+* Django      2.1.7
+* Python     >3.5.2
+* PostgreSQL  9.5.14
 
 and the following pip installations:
 
-*psycopg2-binary=2.7.7
-*psycopg2=2.7.7
-*python-decouple=3.1
+* psycopg2-binary=2.7.7
+* psycopg2=2.7.7
+* python-decouple=3.1
 
 Note that the equal signs denote the versions of the pip packages.
 
