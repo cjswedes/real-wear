@@ -65,3 +65,4 @@ Clone the repo into your working directory: `git clone <repo-url>`
 8. Fill out the Pull Request form: just link to the issue #
 8. Get it reviewed: (just have one other person look at it)
 9. Get it merged into master
+

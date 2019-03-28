@@ -1,3 +1,4 @@
+
 ## Pycharm
 I chose pycharm as my IDE because I know it well. The community edition works perfectly
 for python development.
@@ -49,5 +50,4 @@ Now you need to create a login role so we can access it with the admin usrname a
 These are just the steps that I took, there might be other ways to get here.
 If there are errors, read them all to see what causes the problem,
 then try to find a solution.
-
 
