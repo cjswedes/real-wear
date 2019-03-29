@@ -21,46 +21,49 @@ class Category(models.Model):
 		super(Category, self).save(*args, **kwargs)
 
 class Product(models.Model):
-	slug      = models.SlugField(max_length=255) #self
 	title     = models.CharField(max_length=255)
+	title_slug      = models.SlugField(max_length=255, primary_key=True, editable=False) #self
+	
 	artifact  = models.CharField(max_length=255) #artifact description
-	image     = models.ImageField(upload_to='ledger')
+	image     = models.ImageField(upload_to='ledger', blank=True, null=True)
 
-	materials = models.CharField(max_length=255)
+	materials = models.CharField(max_length=255 , blank=True, null=True)
 	#dimensions =
 
 
-	origin    = models.CharField(max_length=64)
-	collection = models.CharField(max_length=255)
+	origin    = models.CharField(max_length=64, blank=True, null=True)
+	collection = models.CharField(max_length=255, blank=True, null=True)
 	link      = models.CharField(max_length=255)
 
-	origin_description = models.TextField()
-	production_country = models.CharField(max_length=64, blank=True)
-	production_detail  = models.CharField(max_length=128, blank=True)
-	materials_location = models.CharField(max_length=64, blank=True)
-	description        = models.TextField()
+	origin_description = models.TextField(blank=True, null=True)
+	production_country = models.CharField(max_length=64, blank=True, null=True)
+	production_detail  = models.CharField(max_length=128, blank=True, null=True)
+	materials_location = models.CharField(max_length=64, blank=True, null=True)
+	description        = models.TextField(blank=True, null=True)
 
 	license   = models.CharField(max_length=64) #can limit to specific choices
 
 	license_link = models.CharField(max_length=255)
 
 
-	unit_number = models.IntegerField()
-	unit_suffix = models.CharField(max_length=64)
+	unit_number = models.IntegerField(default=0)
+	unit_suffix = models.CharField(max_length=64, blank=True, null=True)
 
 	original_price = models.IntegerField(default=0.0) #price in pence. adjust manually once taken
 	#price_suffix = models.CharField(max_length=64) #can make this choices as well for the time?
 
-	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2)
-	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2)
+	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
 
-	page           = models.IntegerField()
+	page           = models.IntegerField(blank=True, null=True)
 
 
 	#subcategory = models.CharField()
 
-	products      = models.ForeignKey(to=Category, related_name="products", on_delete=models.CASCADE)
-
+	categories      = models.ForeignKey(to=Category, related_name="products", on_delete=models.CASCADE)
+	def save(self, *args, **kwargs):
+		self.title_slug = slugify(self.title)
+		super(Product, self).save(*args, **kwargs)
 class Ledger(models.Model):
 
 	#foreignkey from customer, called 'customer'

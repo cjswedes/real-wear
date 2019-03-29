@@ -20,7 +20,7 @@
                     {% if category.products.count > 0 %}
 
                         {% for product in category.products.all %}
-                                <a href="{% url 'product-detail' category.name_slug product.slug %}" class="list-group-item" >
+                                <a href="{% url 'product-detail' category.name_slug product.title_slug %}" class="list-group-item" >
                                     {{ product.title }}
                                 </a>
                         {% endfor %}

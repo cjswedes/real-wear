@@ -6,7 +6,11 @@
 
 
 <div class="d-flex flex-column">
-	<h1> {{product.name}} </h1>
+	{% if product %}
+		<p> {{product.title}} </p>
+	{% else %}
+		<p> can't find anything captain </p>
+	{% endif %}
   
 </div>
 

@@ -30,5 +30,5 @@ class ProductDetailView(generic.DetailView):
     model=Product
     template_name = 'product_detail.html'
     def get(self, request, *args, **kwargs):
-        product = Product.objects.get(slug=kwargs['product'])
+        product = Product.objects.get(title_slug=kwargs['product'])
         return render(request, self.template_name, {'product': product})
