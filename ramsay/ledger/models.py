@@ -10,7 +10,7 @@ class Customer(models.Model):
 	first_name = models.CharField(max_length=64)
 	last_name  = models.CharField(max_length=64)
 
-	occupation = models.CharField(max_length=64) 
+	occupation = models.CharField(max_length=64)
 
 
 class Category(models.Model):
@@ -22,14 +22,14 @@ class Category(models.Model):
 
 class Product(models.Model):
 	slug      = models.SlugField(max_length=255) #self
-	title     = models.CharField(max_length=255) 
+	title     = models.CharField(max_length=255)
 	artifact  = models.CharField(max_length=255) #artifact description
 	image     = models.ImageField(upload_to='ledger')
 
 	materials = models.CharField(max_length=255)
-	#dimensions = 
+	#dimensions =
 
-	
+
 	origin    = models.CharField(max_length=64)
 	collection = models.CharField(max_length=255)
 	link      = models.CharField(max_length=255)
@@ -56,10 +56,10 @@ class Product(models.Model):
 
 	page           = models.IntegerField()
 
-	
+
 	#subcategory = models.CharField()
 
-	products      = models.ForeignKey(to=Category, related_name="product", on_delete=models.CASCADE)
+	products      = models.ForeignKey(to=Category, related_name="products", on_delete=models.CASCADE)
 
 class Ledger(models.Model):
 
@@ -76,8 +76,3 @@ class Ledger(models.Model):
 	customer = models.ForeignKey(to=Customer, related_name="purchases", on_delete=models.CASCADE)
 	product  = models.ForeignKey(to=Product, related_name="sales", on_delete=models.CASCADE)
 	#thumb things in the excel??
-
-
-
-
-
