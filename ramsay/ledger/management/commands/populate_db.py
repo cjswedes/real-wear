@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from ramsay.ledger.models import Ledger, Citation
+from ledger.models import Ledger, Citation
 import pandas
 
 class Command(BaseCommand):
