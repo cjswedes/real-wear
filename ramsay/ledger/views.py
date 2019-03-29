@@ -34,8 +34,9 @@ class ProductDetailView(generic.DetailView):
         return render(request, self.template_name, {'product': product})
 
 class CustomerListView(generic.ListView):
-    model = Customer
-    template_name = 'profile.html'
+    model       = Customer
+    paginate_by = 10
+    template_name = 'customer_list.html'
     def get(self, request, *args, **kwargs):
-        customer = Customer.objects.all()
-        return render(request, 'profile.html', {'customers':customer})
+        customers = Customer.objects.all()
+        return render(request, 'customer_list.html', {'customers' : customers})
