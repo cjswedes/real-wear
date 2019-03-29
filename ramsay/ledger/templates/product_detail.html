@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="d-flex flex-column">
+	{% if product %}
+		<p> {{product.title}} </p>
+	{% else %}
+		<p> can't find anything captain </p>
+	{% endif %}
+  
+</div>
+
+{% endblock content %}
