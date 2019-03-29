@@ -29,6 +29,7 @@ urlpatterns = [
     path('visual/', TemplateView.as_view(template_name="visual.html")),
     path('about/', TemplateView.as_view(template_name="about.html")),
     path('categories/', views.CategoryListView.as_view(), name="category-list"),
-    path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail")
+    path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail"),
+    path('profiles/', views.CustomerListView.as_view(), name="customer-list")
 
 ]

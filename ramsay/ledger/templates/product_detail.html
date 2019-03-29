@@ -1,17 +1,33 @@
+<!-- TODO: Better layout for product details -->
+<div class="row">
+	<div class="col">
+		<div class="Image">
+			<h2><strong>Artifact: {{product.artifact}}</strong></h2>
+			<img src="#imagesrc" alt="Indigo Image" />
+			<p><span class="text"><strong>Collection:</strong></span> <a
+					href="{{product.link}}">{{product.collection}}</a>
+				<p><span class="text"><strong>License: </strong></span> <a href="#link2">{{product.license}}</a></p>
+		</div>
+	</div>
+	<div class="col">
+		<div class="Product">
+			<h2><strong>Ledger Entry: Indigo</strong></h2>
+			<img src="#ledgerimage" alt="IndigoLedger Image" />
+			<p><span class="text"><strong>Department: </strong></span>{{product.department}}</p>
+			<p><span class="text"><strong>Customer: </strong></span>{{product.customer_first}} {{product.last}}</p>
+			<p><span class="text"><strong>Ledger Page: </strong></span>{{product.page}}</p>
+			<p><span class="text"><strong>Imported From: </strong></span>{{product.origin_description}}</p>
+		</div>
+		<div class="Description">
+			<h4><strong>Product Description</strong></h4>
+			<p>{{product.description|slice:"1:-1"}}</p>
+			<!-- <p><span class="text"><strong>Citation: </strong></span> Feeser, Andrea. <span class="title">Red,
+					White, and Black Make Blue : Indigo in the Fabric of Colonial South Carolina Life.</span> Athens,
+				GA, USA: University of Georgia Press, 2013; <span class="title"></span> </p> -->
+				<p><span class="text"><strong>Citation: </strong></span>TODO: wait for populate_db</p>
+			<h4><strong>Product Variations</strong></h4>
+			<p>{{product.analytics}}</p>
+		</div>
+	</div>
 
-{% extends "base.html" %}
-
-
-{% block content %}
-
-
-<div class="d-flex flex-column">
-	{% if product %}
-		<p> {{product.title}} </p>
-	{% else %}
-		<p> can't find anything captain </p>
-	{% endif %}
-  
 </div>
-
-{% endblock content %}

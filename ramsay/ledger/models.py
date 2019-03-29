@@ -11,10 +11,8 @@ class Citation(models.Model):
 
 class Customer(models.Model):
 	first_name = models.CharField(max_length=64)
-	last_name = models.CharField(max_length=64)
-
-	occupation = models.CharField(max_length=64, null=True, blank=True)
-
+	last_name  = models.CharField(max_length=64)
+	occupation = models.CharField(max_length=64)
 
 class Category(models.Model):
 	name      = models.CharField(max_length=64, primary_key=True)

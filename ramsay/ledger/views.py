@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import Category, Product
+from .models import Category, Product, Customer
 def navbar(request):
     context = {}
     # context['hello'] = 'hello world!'
@@ -32,3 +32,11 @@ class ProductDetailView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         product = Product.objects.get(title_slug=kwargs['product'])
         return render(request, self.template_name, {'product': product})
+
+class CustomerListView(generic.ListView):
+    model       = Customer
+    paginate_by = 10
+    template_name = 'customer_list.html'
+    def get(self, request, *args, **kwargs):
+        customers = Customer.objects.all()
+        return render(request, 'customer_list.html', {'customers' : customers})
