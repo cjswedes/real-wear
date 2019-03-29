@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from ledger.models import Ledger, Citation
+from ramsay.ledger.models import Ledger, Citation
 import pandas
 
 class Command(BaseCommand):
@@ -35,17 +35,17 @@ class Command(BaseCommand):
                            production_country=entry['production1'],
                            production_detail=entry['production2'],
                            description=entry['description'],
-                           citation=citation,
+                           citation=[citation],
                            quantity=entry['unit'],
                            orginal_price=entry['pounds'],
                            modern_pounds=entry['pounds2'],
                            modern_dollars=entry['dollars'],
                            analytics=entry['analytics'])
             try:
-             entry.save()
-            except:
-             # if the're a problem anywhere, you wanna know about it
-             print("there was a problem with line")
-
+                entry.save()
+            except Exception as exc:
+                 # if the're a problem anywhere, you wanna know about it
+                 print("there was a problem with loading a line:")
+                 print(exc)
 
 
