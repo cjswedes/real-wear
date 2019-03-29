@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.core.management.base import BaseCommand
 from ledger.models import Ledger, Citation, Product, Customer, Category
 import pandas
@@ -71,6 +72,5 @@ class Command(BaseCommand):
             except Exception as exc:
                  # if the're a problem anywhere, you wanna know about it
                  print(f'Error saving ledger entry: {exc}')
-
 
 
