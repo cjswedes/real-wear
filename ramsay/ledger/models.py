@@ -32,12 +32,12 @@ class Product(models.Model):
 	image     = models.ImageField(upload_to='ledger', blank=True, null=True)
 
 	materials = models.CharField(max_length=255 , blank=True, null=True)
-	dimensions = models.CharField(max_length=255 , blank=True, null=True)
+	dimensions = models.CharField(max_length=255, blank=True, null=True)
 
 
 	origin    = models.CharField(max_length=64, blank=True, null=True)
 	collection = models.CharField(max_length=255, blank=True, null=True)
-	link      = models.CharField(max_length=255)
+	link      = models.CharField(max_length=255, blank=True, null=True)
 
 	origin_description = models.TextField(blank=True, null=True)
 	production_country = models.CharField(max_length=64, blank=True, null=True)
@@ -45,9 +45,9 @@ class Product(models.Model):
 	materials_location = models.CharField(max_length=64, blank=True, null=True)
 	description        = models.TextField(blank=True, null=True)
 
-	license   = models.CharField(max_length=64) #can limit to specific choices
+	license   = models.CharField(max_length=64, blank=True, null=True) #can limit to specific choices
 
-	license_link = models.CharField(max_length=255)
+	license_link = models.CharField(max_length=255, blank=True, null=True)
 
 
 	#unit_number = models.IntegerField(default=0)
@@ -71,6 +71,7 @@ class Product(models.Model):
 	def save(self, *args, **kwargs):
 		self.title_slug = slugify(self.title)
 		super(Product, self).save(*args, **kwargs)
+
 class Ledger(models.Model):
 
 	#foreignkey from customer, called 'customer'
