@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from ramsay.ledger.models import Ledger, Citation
+from ledger.models import Ledger, Citation
 import pandas
 
 class Command(BaseCommand):
@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'our help string comes here'
 
     def handle(self, *args, **options):
-        ledger_df = pandas.read_csv('example_ledger.csv')
+        ledger_df = pandas.read_csv(f'example_ledger.csv')
         for index, entry in ledger_df.iterrows():
             citation = Citation(author=entry['author'],
                                 book=entry['book'],

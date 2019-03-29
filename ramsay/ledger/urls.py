@@ -15,15 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 
-from django.conf.urls import url
+#from django.conf.urls import url
 from . import views
 
 urlpatterns = [
     # url('navbar', view.navbar),
-    url(r'^$',views.home),
-    url('visual', views.visual),
-    url('about', views.about)
+    #url(r'^$',views.home),
+    #url('visual', views.visual),
+    #url('about', views.about)
+    path('', TemplateView.as_view(template_name="home.html")),
+    path('visual/', TemplateView.as_view(template_name="visual.html")),
+    path('about/', TemplateView.as_view(template_name="about.html")),
+    path('categories/', views.CategoryListView.as_view(), name="category-list"),
+    path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail")
+
 ]
-
-
