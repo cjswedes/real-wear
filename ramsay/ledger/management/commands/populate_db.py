@@ -14,17 +14,17 @@ class Command(BaseCommand):
                                 publisher=entry['publisher'])
             # TODO: there could possibly be more citations, but this script isnt checking them
             # fields: book2 author2, publisher2
-            entry = Ledger(slug=entry['self'],
+            print('title: <' + entry['title'] + '>')
+            entry = Ledger(#slug=entry['self'],
                            title=entry['title'],
                            artifact=entry['artifact'],
-                           image=None, # TODO: actually load the image
+                           image=None, #entry['link'],
                            materials=entry['materials'],
                            dimensions=entry['dimensions'],
                            date=entry['date'],
                            origin=entry['origin'],
                            distance=entry['distance'],
                            collection=entry['collection'],
-                           link=entry['link'],
                            license=entry['license'],
                            license_link=entry['link2'],
                            department=entry['department'],
@@ -35,14 +35,16 @@ class Command(BaseCommand):
                            production_country=entry['production1'],
                            production_detail=entry['production2'],
                            description=entry['description'],
-                           citation=citation,
+                        #    citation=citation,
                            quantity=entry['unit'],
                            orginal_price=entry['pounds'],
                            modern_pounds=entry['pounds2'],
                            modern_dollars=entry['dollars'],
-                           analytics=entry['analytics'])
+                           analytics=entry['analytics']
+                           )
             try:
              entry.save()
+             citation.set()
             except:
              # if the're a problem anywhere, you wanna know about it
              print("there was a problem with line")

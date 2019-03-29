@@ -4,36 +4,82 @@
 {% block content%}
 
 <div class="container">
-    <div class="d-flex flex-column" id="full_table">
-        <div class="d-flex flex-row" id="header">
 
-            <h1> Browse by Category </h1>
-        </div>
-
-        {% if categories %}
-            <div class="list-group list-group-root well">
-                {% for category in categories %}
-                    <a href="#{{category.name_slug }}" class="list-group-item" data-toggle="collapse">
-                        <i class="glyphicon glyphicon-chevron-right"></i>{{ category.name }}
+    <div class="row">
+        <div class='col-2'>
+            <div class="list-group">
+                <!-- TODO 1. active color for categories when selected. -->
+                <!--      2. accordion on categories?/products-->
+                <!--      3. show all product by default/add a single category for all -->
+                {% if categories %}
+                <div class="list-group list-group-root well">
+                    <a href="#all" class="list-group-item list-group-item-action" data-toggle="collapse">
+                        TODO: All Products
                     </a>
-                    <div class="list-group collapse" id="{{category.name_slug}}">
-                    {% if category.products.count > 0 %}
-
-                        {% for product in category.products.all %}
-                                <a href="{% url 'product-detail' category.name_slug product.title_slug %}" class="list-group-item" >
-                                    {{ product.title }}
-                                </a>
-                        {% endfor %}
-
-                    {% else %}
-                        <p class="list-group-item"> No products found. </p>
-                    {% endif %}
-                    </div>
-                {% endfor %}
+                    {% for category in categories %}
+                    <a href="#{{category.name_slug }}" class="list-group-item list-group-item-action" data-toggle="collapse">
+                        {{ category.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                No categories found.
+                {% endif %}
             </div>
-        {% else %}
-            <p> No categories found. </p>
-        {% endif %}
+        </div>
+        <div class='col-10'>
+            <div class="d-flex flex-column col">
+                {% if categories %}
+                <div class="list-group well accordion">
+                    {% for category in categories %}
+                    <div class="list-group collapse" id="{{category.name_slug}}">
+                        {% if category.products.count > 0 %}
+                        {% for product in category.products.all %}
+                        <div class="list-group-item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5>{{ product.title }}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                            materials: {{product.materials}}<br>
+                                            dimensions: {{product.dimensions}}<br>
+                                            date: {{product.date}}<br>
+                                            origin: {{product.origin}}
+                                    </div>
+                                    <div class="col">
+                                        <div class="float-right">
+                                            Used to be: {{product.original_price}} pence<br>
+                                            <h4>${{product.modern_dollars}}</h4>
+                                            <a class="btn btn-primary " data-toggle="collapse"
+                                            href="#{{ product.title_slug }}" role="button">
+                                            View Details
+                                            </a>
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="collapse pt-2" id="{{ product.title_slug }}" style="width: 100%">
+                                        <div class="card card-body">
+                                            {% include "product_detail.html" %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="list-group-item"> No products found. </p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p> No categories found. </p>
+                {% endif %}
+            </div>
+        </div>
     </div>
-</div>
-{% endblock content%}
+    {% endblock content%}
