@@ -7,8 +7,22 @@ class Citation(models.Model):
 	book      = models.CharField(max_length=255)
 	publisher = models.CharField(max_length=255)
 
-
 class Ledger(models.Model):
+
+	#foreignkey from customer, called 'customer'
+	#foreignkey from product, called 'product'
+
+	#citation
+
+	date      = models.DateTimeField(blank = True)
+	analytics = models.TextField() #recorded analytic description in ledger
+
+	citation = models.ManyToManyField(to=Citation, related_name='ledger_entries')#, on_delete=models.CASCADE)
+
+
+	#thumb things in the excel??
+
+class Product(models.Model):
 	slug      = models.SlugField(max_length=255) #self
 	title     = models.CharField(max_length=255) 
 	artifact  = models.CharField(max_length=255) #artifact description
@@ -17,28 +31,10 @@ class Ledger(models.Model):
 	materials = models.CharField(max_length=255)
 	#dimensions = 
 
-	date      = models.DateTimeField(blank = True)
+	
 	origin    = models.CharField(max_length=64)
 	collection = models.CharField(max_length=255)
 	link      = models.CharField(max_length=255)
-
-	license   = models.CharField(max_length=64) #can limit to specific choices
-
-	license_link = models.CharField(max_length=255)
-
-	#ledger file name -- not used
-	DEPARTMENTS = ("agriculture", "tools", "textiles")
-	DEPARTMENT_CHOICES = (
-		(1, "agriculture")
-	)
-
-#( for index, item in enumerate(DEPARTMENTS) (index, item) )
-
-	department   = models.CharField(max_length=255)#models.CharField(choices=DEPARTMENT_CHOICES, default=DEPARTMENTS[1])
-
-	customer_first = models.CharField(max_length=64)
-	customer_last  = models.CharField(max_length=64)
-	page           = models.IntegerField()
 
 	origin_description = models.TextField()
 	production_country = models.CharField(max_length=64, blank=True)
@@ -46,8 +42,10 @@ class Ledger(models.Model):
 	materials_location = models.CharField(max_length=64, blank=True)
 	description        = models.TextField()
 
-	#citation
-	citation = models.ManyToManyField(to=Citation, related_name='ledger_entries')#, on_delete=models.CASCADE)
+	license   = models.CharField(max_length=64) #can limit to specific choices
+
+	license_link = models.CharField(max_length=255)
+
 
 	unit_number = models.IntegerField()
 	unit_suffix = models.CharField(max_length=64)
@@ -58,9 +56,24 @@ class Ledger(models.Model):
 	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2)
 	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2)
 
-	analytics = models.TextField()
+	page           = models.IntegerField()
 
-	#thumb things in the excel??
+	sales = models.ForeignKey(to=Ledger, related_name="product", on_delete=models.CASCADE)
 
+
+class Department(models.Model):
+	DEPARTMENTS = ("agriculture", "tools", "textiles")
+	DEPARTMENT_CHOICES = ( (index, item) for index, item in enumerate(DEPARTMENTS))
+	department  = models.IntegerField(choices=DEPARTMENT_CHOICES, default=DEPARTMENTS[1])
+
+	products = models.ForeignKey(to=Product, related_name="department", on_delete=models.CASCADE)
+
+class Customer(models.Model):
+	first_name = models.CharField(max_length=64)
+	last_name  = models.CharField(max_length=64)
+
+	occupation = models.CharField(max_length=64) 
+
+	purchases  = models.ForeignKey(to=Ledger, related_name="customer", on_delete=models.CASCADE)
 
 
