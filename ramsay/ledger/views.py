@@ -1,6 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from django.urls import reverse_lazy
+from django.views import generic
+from .models     import Category, Product
+
+
 def navbar(request):
     context = {}
     # context['hello'] = 'hello world!'
@@ -15,3 +20,12 @@ def visual(request):
 
 def about(request):
     return render(request, 'about.html')
+
+class CategoryListView(generic.ListView):
+	model         = Category
+	paginate_by   = 10
+	template_name = 'category_list.html'
+	def get(self, request, *args, **kwargs):	
+		categories = Category.objects.all()
+
+		return render(request, 'category_list.html', {'categories':categories} )

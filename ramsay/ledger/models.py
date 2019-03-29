@@ -1,26 +1,24 @@
 from django.db import models
-
-
+from django.template.defaultfilters import slugify
 class Citation(models.Model):
 
 	author    = models.CharField(max_length=255)
 	book      = models.CharField(max_length=255)
 	publisher = models.CharField(max_length=255)
 
-class Ledger(models.Model):
+class Customer(models.Model):
+	first_name = models.CharField(max_length=64)
+	last_name  = models.CharField(max_length=64)
 
-	#foreignkey from customer, called 'customer'
-	#foreignkey from product, called 'product'
-
-	#citation
-
-	date      = models.DateTimeField(blank = True)
-	analytics = models.TextField() #recorded analytic description in ledger
-
-	citation = models.ManyToManyField(to=Citation, related_name='ledger_entries')#, on_delete=models.CASCADE)
+	occupation = models.CharField(max_length=64) 
 
 
-	#thumb things in the excel??
+class Category(models.Model):
+	name      = models.CharField(max_length=64, primary_key=True)
+	name_slug = models.SlugField(unique=True, editable=False)
+	def save(self, *args, **kwargs):
+		self.name_slug = slugify(self.name)
+		super(Category, self).save(*args, **kwargs)
 
 class Product(models.Model):
 	slug      = models.SlugField(max_length=255) #self
@@ -58,22 +56,28 @@ class Product(models.Model):
 
 	page           = models.IntegerField()
 
-	sales = models.ForeignKey(to=Ledger, related_name="product", on_delete=models.CASCADE)
+	
+	#subcategory = models.CharField()
+
+	products      = models.ForeignKey(to=Category, related_name="product", on_delete=models.CASCADE)
+
+class Ledger(models.Model):
+
+	#foreignkey from customer, called 'customer'
+	#foreignkey from product, called 'product'
+
+	#citation
+
+	date      = models.DateTimeField(blank = True)
+	analytics = models.TextField() #recorded analytic description in ledger
+
+	citation = models.ManyToManyField(to=Citation, related_name='ledger_entries')#, on_delete=models.CASCADE)
+
+	customer = models.ForeignKey(to=Customer, related_name="purchases", on_delete=models.CASCADE)
+	product  = models.ForeignKey(to=Product, related_name="sales", on_delete=models.CASCADE)
+	#thumb things in the excel??
 
 
-class Department(models.Model):
-	DEPARTMENTS = ("agriculture", "tools", "textiles")
-	DEPARTMENT_CHOICES = ( (index, item) for index, item in enumerate(DEPARTMENTS))
-	department  = models.IntegerField(choices=DEPARTMENT_CHOICES, default=DEPARTMENTS[1])
 
-	products = models.ForeignKey(to=Product, related_name="department", on_delete=models.CASCADE)
-
-class Customer(models.Model):
-	first_name = models.CharField(max_length=64)
-	last_name  = models.CharField(max_length=64)
-
-	occupation = models.CharField(max_length=64) 
-
-	purchases  = models.ForeignKey(to=Ledger, related_name="customer", on_delete=models.CASCADE)
 
 

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content%}
+
+<div class="container">
+    <div class="d-flex flex-column" id="full_table">
+        <div class="d-flex flex-row" id="header">
+
+            <h1> Browse by Category </h1>
+        </div>
+        
+        {% if categories %}
+            <div class="list-group list-group-root well">
+                {% for category in categories %}
+                    <a href="#{{category.name_slug }}" class="list-group-item" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-chevron-right"></i>{{ category.name }}
+                    </a>
+                    <div class="list-group collapse" id="{{category.name_slug}}">
+                    {% if category.products %}
+                        
+                        {% for product in category.products.all %}
+                                <a href="#product" class="list-group-item" >
+                                    {{ product.title }}
+                                </a>
+                        {% endfor %}
+                        
+                    {% else %}
+                        <p class="list-group-item"> No products found. </p>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p> No categories found. </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content%}

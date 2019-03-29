@@ -19,6 +19,7 @@
   <!-- END FAVICONS -->
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css"
     integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css"
@@ -55,7 +56,7 @@
         </li>
         <li class="nav-item">
           <!-- TODO change href -->
-          <a class="nav-link" href="#">Shop by Department</a>
+          <a class="nav-link" href="{% url 'category-list' %}">Shop by Department</a>
         </li>
         <li class="nav-item">
           <!-- TODO change href -->

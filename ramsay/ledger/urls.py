@@ -27,7 +27,8 @@ urlpatterns = [
     #url('about', views.about)
     path('', TemplateView.as_view(template_name="home.html")),
     path('visual/', TemplateView.as_view(template_name="visual.html")),
-    path('about/', TemplateView.as_view(template_name="about.html"))
+    path('about/', TemplateView.as_view(template_name="about.html")),
+    path('categories/', views.CategoryListView.as_view(), name="category-list"),
    
 ]
 
