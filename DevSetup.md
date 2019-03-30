@@ -25,13 +25,16 @@ Check the digital ocean link in the proper readme.
 ~~I am not sure how to do this. I must have done it in the past since I have it already.
 We want 9.5 for the version.  Google how to get it and then add documentation here if you
 are the first one to do it :)~~
+###Populate the DB
+1. run `python manage.py flush --settings=ramsay.settings.dev` to flush your DB clear of all data
+2. run `python manage.py populate_db --settings=ramsay.settings.dev` to run the population script
 
 One thing you will for sure have to do is setup the database so that we can connect to it:
 I used the pgAdminIII program on your computer to do this:
 1. Open create dialog by clicking postgres 9.5 server group 
 2. right click databases, and then create new...
-    * Name = ledger
-    * Owner = admin
+    * Name = ramsay
+    * Owner = postgres
 3. create it
 
 Now you need to create a login role so we can access it with the admin usrname and password
@@ -39,12 +42,6 @@ Now you need to create a login role so we can access it with the admin usrname a
     * name = admin (or the name in your .env file)
 2. change password to the DB_PASSWORD in your .env file in the definition tab
 3. check all boxes in the role_priveleges tab
-
-###Populate the DB
-1. run `python manage.py makemigrations --settings=ramsay.settings.dev` to allow django to create your db tables 
-2. run `python manage.py migrate --settings=ramsay.settings.dev` to apply those changes tables 
-3. run `python manage.py flush --settings=ramsay.settings.dev` to flush your DB clear of all data
-4. run `python manage.py populate_db --settings=ramsay.settings.dev` to run the population script
 
 ##Running the app
 1. You need to setup a run config for ease of development:
