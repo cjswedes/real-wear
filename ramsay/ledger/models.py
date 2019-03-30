@@ -4,14 +4,15 @@ from django.template.defaultfilters import slugify
 
 #TODO: decide lengths for efficiency in storage
 class Citation(models.Model):
-	author    = models.CharField(max_length=255)
-	book      = models.CharField(max_length=255)
+	author = models.CharField(max_length=255)
+	book = models.CharField(max_length=255)
 	publisher = models.CharField(max_length=255)
 
 class Customer(models.Model):
 	first_name = models.CharField(max_length=64)
-	last_name  = models.CharField(max_length=64)
-	occupation = models.CharField(max_length=64)
+	last_name = models.CharField(max_length=64)
+
+	occupation = models.CharField(max_length=64, null=True, blank=True)
 
 
 class Category(models.Model):
@@ -51,18 +52,21 @@ class Product(models.Model):
 	#unit_number = models.IntegerField(default=0)
 	#unit_suffix = models.CharField(max_length=64, blank=True, null=True)
 
-	original_price = models.IntegerField(default=0) #price in pence. adjust manually once taken
-	#price_suffix = models.CharField(max_length=64) 
-	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
-	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
+	# original_price = models.IntegerField(default=0.0) #price in pence. adjust manually once taken
+	original_price = models.CharField(max_length=64)
+	#price_suffix = models.CharField(max_length=64) #can make this choices as well for the time?
 
+	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+
+	# TODO: is page a part of a product or a ledger entry?
 	page           = models.IntegerField(blank=True, null=True)
 
 	quantity = models.CharField(max_length=64, blank=True, null=True)
 
 	#subcategory = models.CharField()
 
-	categories      = models.ForeignKey(to=Category, related_name="products", on_delete=models.CASCADE)
+	category      = models.ForeignKey(to=Category, related_name="products", on_delete=models.CASCADE)
 	def save(self, *args, **kwargs):
 		self.title_slug = slugify(self.title)
 		super(Product, self).save(*args, **kwargs)
@@ -73,12 +77,11 @@ class Ledger(models.Model):
 	#foreignkey from product, called 'product'
 
 	#citation
-
-	date      = models.DateTimeField(blank = True)
+	date      = models.CharField(max_length=64, blank = True)
 	analytics = models.TextField() #recorded analytic description in ledger
 
-	citation = models.ManyToManyField(to=Citation, related_name='ledger_entries')#, on_delete=models.CASCADE)
+	citation = models.ForeignKey(to=Citation, related_name='ledger_entries', on_delete=models.CASCADE, null=True)
 
-	customer = models.ForeignKey(to=Customer, related_name="purchases", on_delete=models.CASCADE)
+	customer = models.ForeignKey(to=Customer, related_name="purchases",on_delete=models.CASCADE)
 	product  = models.ForeignKey(to=Product, related_name="sales", on_delete=models.CASCADE)
 	#thumb things in the excel??
