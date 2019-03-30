@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from ledger.models import Ledger, Citation
+from ledger.models import Ledger, Citation, Product, Customer, Category
 import pandas
 
 class Command(BaseCommand):
@@ -7,47 +7,72 @@ class Command(BaseCommand):
     help = 'our help string comes here'
 
     def handle(self, *args, **options):
-        ledger_df = pandas.read_csv('example_ledger.csv')
+        ledger_df = pandas.read_csv('ledger/data/example_ledger.csv')
         for index, entry in ledger_df.iterrows():
+            category = Category(name=entry['department'],
+                                name_slug=entry['department'])
             citation = Citation(author=entry['author'],
                                 book=entry['book'],
                                 publisher=entry['publisher'])
             # TODO: there could possibly be more citations, but this script isnt checking them
             # fields: book2 author2, publisher2
-            print('title: <' + entry['title'] + '>')
-            entry = Ledger(#slug=entry['self'],
-                           title=entry['title'],
-                           artifact=entry['artifact'],
-                           image=None, #entry['link'],
-                           materials=entry['materials'],
-                           dimensions=entry['dimensions'],
-                           date=entry['date'],
-                           origin=entry['origin'],
-                           distance=entry['distance'],
-                           collection=entry['collection'],
-                           license=entry['license'],
-                           license_link=entry['link2'],
-                           department=entry['department'],
-                           customer_first=entry['customer'].split(' ')[0],
-                           customer_last=entry['customer'].split(' ')[1:],
-                           page=entry['page'],
-                           origin_description=entry['origin2'],
-                           production_country=entry['production1'],
-                           production_detail=entry['production2'],
-                           description=entry['description'],
-                        #    citation=citation,
-                           quantity=entry['unit'],
-                           orginal_price=entry['pounds'],
-                           modern_pounds=entry['pounds2'],
-                           modern_dollars=entry['dollars'],
-                           analytics=entry['analytics']
-                           )
+
+            customer = Customer(first_name=entry['customer'].split(' ')[0],
+                                last_name=entry['customer'].split(' ')[1],
+                                occupation='baker')
+            product = Product(title=entry['title'],
+                    title_slug=entry['self'],
+                    artifact=entry['artifact'],
+                    image=None,  # TODO: actually load the image
+                    materials=entry['materials'],
+                    dimensions=entry['dimensions'],
+                    origin=entry['origin'],
+                    collection=entry['collection'],
+                    link=entry['link'],
+                    origin_description=entry['origin2'],
+                    production_country=entry['production1'],
+                    production_detail=entry['production2'],
+                    materials_location=entry['materials2'],
+                    description=entry['description'],
+                    license=entry['license'],
+                    license_link=entry['link2'],
+                    original_price=entry['pounds'],
+                    modern_pounds=entry['pounds2'],
+                    modern_dollars=entry['dollars'],
+                    page=entry['page'],
+                    quantity=entry['unit'],
+                    category=category)
+
             try:
-             entry.save()
-             citation.set()
-            except:
-             # if the're a problem anywhere, you wanna know about it
-             print("there was a problem with line")
+                category.save()
+                customer.save()
+            except Exception as exc:
+                 # if the're a problem anywhere, you wanna know about it
+                 print(f'Error saving customer: {exc}')
+            try:
+                product.save()
+                citation.save()
+            except Exception as exc:
+                # if the're a problem anywhere, you wanna know about it
+                print(f'Error saving citation: {exc}')
+
+            ledger_entry = Ledger(date=entry['date'],
+                                  analytics=entry['analytics'],
+                                  customer=customer,
+                                  product=product,
+                                  citation=citation
+
+                                                  # distance=entry['distance'],
+                                                  # department=entry['department']
+                                  )
+
+            try:
+                ledger_entry.save()
+            except Exception as exc:
+                 # if the're a problem anywhere, you wanna know about it
+                 print(f'Error saving ledger entry: {exc}')
+
+
 
 
 
