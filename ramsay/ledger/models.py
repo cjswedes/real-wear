@@ -4,7 +4,6 @@ from django.template.defaultfilters import slugify
 
 #TODO: decide lengths for efficiency in storage
 class Citation(models.Model):
-	id = models.AutoField(primary_key=True)
 	author = models.CharField(max_length=255)
 	book = models.CharField(max_length=255)
 	publisher = models.CharField(max_length=255)
@@ -82,6 +81,6 @@ class Ledger(models.Model):
 
 	citation = models.ForeignKey(to=Citation, related_name='ledger_entries', on_delete=models.CASCADE, null=True)
 
-	customer = models.ForeignKey(to=Customer, on_delete=models.CASCADE)
-	product  = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+	customer = models.ForeignKey(to=Customer, related_name="purchases",on_delete=models.CASCADE)
+	product  = models.ForeignKey(to=Product, related_name="sales", on_delete=models.CASCADE)
 	#thumb things in the excel??
