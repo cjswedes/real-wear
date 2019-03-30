@@ -1,23 +1,48 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block script %}
+<script>    
+    // $(".open-button").on("click", function() {
+    //     $(this).closest('.collapse-group').find('.collapse').collapse('show');
+    // });
+    
+    // $(".close-button").on("click", function() {
+    //     $(this).closest('.collapse-group').find('.collapse').collapse('hide');
+    // });
+
+    $(".list-group-item-action").on("click", function() {
+        // $(this).siblings().removeClass('active');
+        $(this).toggleClass("active");
+        
+    });
+</script>
+{% endblock script %}
+
 {% block content%}
 
 <div class="container">
 
-    <div class="row">
+    <div class="row collapse-group">
         <div class='col-2'>
             <div class="list-group">
-                <!-- TODO 1. active color for categories when selected. -->
+                <!-- TODO -->
+                <!--      1. select all/deselect all categories-->
                 <!--      2. accordion on categories?/products-->
-                <!--      3. show all product by default/add a single category for all -->
+                <!--         04/03: I dont think accordion will work in this case,
+                            may need to write some js to handle show/collapse-->
+
                 {% if categories %}
                 <div class="list-group list-group-root well">
-                    <a href="#all" class="list-group-item list-group-item-action" data-toggle="collapse">
-                        TODO: All Products
-                    </a>
+                    <!-- <a href="#all" class="list-group-item list-group-item-action open-button" data-toggle="collapse">
+                        View All (TODO: All Products)
+                    </a> -->
+                    <!-- <a href="#all" class="list-group-item list-group-item-action close-button" data-toggle="collapse">
+                        Close All (TODO: Merge to button above)
+                    </a> -->
                     {% for category in categories %}
-                    <a href="#{{category.name_slug }}" class="list-group-item list-group-item-action" data-toggle="collapse">
+                    <a href="#{{category.name_slug }}" class="list-group-item list-group-item-action active" 
+                    data-toggle="collapse" data-target="#{{category.name_slug}}">
                         {{ category.name }}
                     </a>
                     {% endfor %}
@@ -25,14 +50,15 @@
                 {% else %}
                 No categories found.
                 {% endif %}
+                <p><a href="#" class="text-primary">TODO: Select/Deselect All</a></p>
             </div>
         </div>
         <div class='col-10'>
             <div class="d-flex flex-column col">
                 {% if categories %}
-                <div class="list-group well accordion">
+                <div class="list-group well">
                     {% for category in categories %}
-                    <div class="list-group collapse" id="{{category.name_slug}}">
+                    <div class="list-group collapse show" id="{{category.name_slug}}">
                         {% if category.products.count > 0 %}
                         {% for product in category.products.all %}
                         <div class="list-group-item">
@@ -43,21 +69,19 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col-10">
                                             materials: {{product.materials}}<br>
                                             dimensions: {{product.dimensions}}<br>
                                             date: {{product.date}}<br>
                                             origin: {{product.origin}}
                                     </div>
-                                    <div class="col">
-                                        <div class="float-right">
-                                            Used to be: {{product.original_price}} pence<br>
+                                    <div class="col-2">
+                                            Used to be: {{product.original_price}}<br>
                                             <h4>${{product.modern_dollars}}</h4>
-                                            <a class="btn btn-primary " data-toggle="collapse"
+                                            <a class="btn btn-primary" data-toggle="collapse"
                                             href="#{{ product.title_slug }}" role="button">
                                             View Details
                                             </a>
-                                        </div>  
                                     </div>
                                 </div>
                                 <div class="row">
@@ -82,4 +106,5 @@
             </div>
         </div>
     </div>
+
     {% endblock content%}
