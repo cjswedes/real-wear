@@ -19,6 +19,7 @@ from .models import Citation
 
 class CitationTest(TestCase):
 	def test_string_representation(self):
-		citat = Citation(author="auth")
-		self.assertEqual(str(citat), citat.author)
+		citat = Citation.objects.create(author="auth")
+		
+		self.assertEqual(str('auth'), citat.author)
 
