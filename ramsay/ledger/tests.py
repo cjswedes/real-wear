@@ -1,4 +1,3 @@
-
 '''
 To run tests: python3 manage.py test --settings=ramsay.settings.dev
 If you get an error that says:
@@ -19,6 +18,12 @@ from .models import Citation
 
 class CitationTest(TestCase):
 	def test_string_representation(self):
-		citat = Citation(author="auth")
-		self.assertEqual(str(citat), citat.author)
-
+		author = "fake author"
+		book = "fake book"
+		pub = "fake publisher"
+		#@ yu-lin, might need to initialize all or test will not run.
+		citat = Citation(author, book, pub)  #(author="auth) 
+		citat.save()
+		self.assertEqual(author, citat.author)
+		self.assertEqual(book, citat.book)
+		self.assertEqual(pub, citat.publisher)
