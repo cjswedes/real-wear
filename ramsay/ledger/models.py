@@ -4,7 +4,6 @@ from django.template.defaultfilters import slugify
 
 #TODO: decide lengths for efficiency in storage
 class Citation(models.Model):
-
 	author    = models.CharField(max_length=255)
 	book      = models.CharField(max_length=255)
 	publisher = models.CharField(max_length=255)
