@@ -6,3 +6,4 @@ env
 migrations
 *.JPG
 *.jpg
+.vscode

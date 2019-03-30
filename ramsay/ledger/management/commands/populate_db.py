@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.core.management.base import BaseCommand
 from ledger.models import Ledger, Citation, Product, Customer, Category
 import pandas
@@ -49,13 +48,13 @@ class Command(BaseCommand):
                 customer.save()
             except Exception as exc:
                  # if the're a problem anywhere, you wanna know about it
-                 print(f'Error saving customer: {exc}')
+                 print('Error saving customer: %s' % exc)
             try:
                 product.save()
                 citation.save()
             except Exception as exc:
                 # if the're a problem anywhere, you wanna know about it
-                print(f'Error saving citation: {exc}')
+                print('Error saving citation: %s' % exc)
 
             ledger_entry = Ledger(date=entry['date'],
                                   analytics=entry['analytics'],
@@ -71,6 +70,6 @@ class Command(BaseCommand):
                 ledger_entry.save()
             except Exception as exc:
                  # if the're a problem anywhere, you wanna know about it
-                 print(f'Error saving ledger entry: {exc}')
+                 print('Error saving ledger entry: %s' % exc)
 
 
