@@ -2,20 +2,26 @@
 {% load static %}
 
 {% block script %}
-<script>    
-    // $(".open-button").on("click", function() {
-    //     $(this).closest('.collapse-group').find('.collapse').collapse('show');
-    // });
-    
-    // $(".close-button").on("click", function() {
-    //     $(this).closest('.collapse-group').find('.collapse').collapse('hide');
-    // });
-
-    $(".list-group-item-action").on("click", function() {
-        // $(this).siblings().removeClass('active');
-        $(this).toggleClass("active");
-        
+<script>
+    $(".list-group-item-action.not-all").on("click", function() {
+        if(!$(this).hasClass("active")){
+            // prodlist
+            var pdlst = $(this).parentsUntil(".container").siblings(".col-10").find("#prodlist");
+            // remove collapse all categories from prodlist
+            console.log(pdlst.find(".list-group.collapse.show").removeClass("show"));
+            // remove active from .list-group-item-action.action
+            $(this).siblings(".active").removeClass("active");
+            // show $(this) in prodlist
+            pdlst.find($(this).attr('href')).collapse("show");
+            // active $(this)
+            $(this).toggleClass("active");
+        }  
     });
+    
+    $(".list-group-item-action").on("click", function(){
+        if($(this).hasClass("active")){}
+    });
+
 </script>
 {% endblock script %}
 
@@ -34,15 +40,12 @@
 
                 {% if categories %}
                 <div class="list-group list-group-root well">
-                    <!-- <a href="#all" class="list-group-item list-group-item-action open-button" data-toggle="collapse">
-                        View All (TODO: All Products)
-                    </a> -->
-                    <!-- <a href="#all" class="list-group-item list-group-item-action close-button" data-toggle="collapse">
-                        Close All (TODO: Merge to button above)
-                    </a> -->
+                    <a href="{% url 'category-list' %}" class="list-group-item list-group-item-action active">
+                        View All
+                    </a>
                     {% for category in categories %}
-                    <a href="#{{category.name_slug }}" class="list-group-item list-group-item-action active" 
-                    data-toggle="collapse" data-target="#{{category.name_slug}}">
+                    <a href="#{{ category.name_slug }}" class="list-group-item list-group-item-action not-all"> <!---->
+                    <!-- data-toggle="collapse" data-target="#{{category.name_slug}}"> -->
                         {{ category.name }}
                     </a>
                     {% endfor %}
@@ -50,13 +53,13 @@
                 {% else %}
                 No categories found.
                 {% endif %}
-                <p><a href="#" class="text-primary">TODO: Select/Deselect All</a></p>
             </div>
+
         </div>
         <div class='col-10'>
             <div class="d-flex flex-column col">
                 {% if categories %}
-                <div class="list-group well">
+                <div class="list-group well" id="prodlist">
                     {% for category in categories %}
                     <div class="list-group collapse show" id="{{category.name_slug}}">
                         {% if category.products.count > 0 %}

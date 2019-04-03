@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 
 #from django.conf.urls import url
 from . import views
@@ -29,6 +30,8 @@ urlpatterns = [
     path('visual/', TemplateView.as_view(template_name="visual.html")),
     path('about/', TemplateView.as_view(template_name="about.html")),
     path('categories/', views.CategoryListView.as_view(), name="category-list"),
+    # TODO: refreshing following page jumps to bottom of category page.
+    # path('categories/<slug:category>/', RedirectView.as_view(url='categories/'), name="category-list"),
     path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail"),
     path('customers/', views.CustomerListView.as_view(), name="customer-list")
 
