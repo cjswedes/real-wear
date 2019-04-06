@@ -17,12 +17,16 @@
             $(this).toggleClass("active");
         }  
     });
-    
     $(".list-group-item-action").on("click", function(){
         if($(this).hasClass("active")){}
     });
-
+    $('.addtocart').popover().click(function () {
+    setTimeout(function () {
+        $('.addtocart').popover('hide');
+    }, 1000);
+    });
 </script>
+
 {% endblock script %}
 
 {% block content%}
@@ -68,19 +72,23 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-10">
+                                    <div class="col-9">
                                             materials: {{product.materials}}<br>
                                             dimensions: {{product.dimensions}}<br>
                                             date: {{product.date}}<br>
                                             origin: {{product.origin}}
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                             Used to be: {{product.original_price}}<br>
                                             <h4>${{product.modern_dollars}}</h4>
-                                            <a class="btn btn-primary" data-toggle="collapse"
-                                            href="#{{ product.title_slug }}" role="button">
-                                            View Details
-                                            </a>
+                                            <div class="row">
+                                                <a class="btn btn-primary mr-1 mt-1" data-toggle="collapse"
+                                                href="#{{ product.title_slug }}" role="button">
+                                                    <i class="fas fa-chevron-down"></i> View Details</a>
+                                                <a class="btn btn-primary mt-1 addtocart" id="addtocart" data-toggle="popover" data-placement="right" data-content='Added to Cart' href="#">
+                                                    <i class="fas fa-cart-plus"></i> Add to Cart</a>
+                                            </div>
+                                            
                                     </div>
                                 </div>
                                 <div class="row">
