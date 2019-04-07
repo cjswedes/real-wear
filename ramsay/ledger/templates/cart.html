@@ -21,7 +21,20 @@
     <div class="row cart-row">
             <div class="col"> Item 2 </div>
             <div class="col row text-right">
-                <div class="col"> 1 </div> 
+                <div class="col">
+                    <!-- TODO: http://jsbin.com/ALESUXib/1/edit 
+                               https://stackoverflow.com/questions/20235453/executing-js-from-inside-bootstrap-popover-content
+                    -->
+                        <div class="input-group number-spinner">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" data-dir="dwn">-</button>
+                                </span>
+                                <input type="text" class="form-control text-center" value="1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" data-dir="up">+</button>
+                                </span>
+                            </div>
+                </div> 
                 <div class="col"> $1.00 </div>
             </div>
     </div>
