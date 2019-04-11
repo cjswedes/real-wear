@@ -28,6 +28,17 @@
     });
 </script>
 
+<!-- fetch product detail on click -->
+<script>
+    // TODO: passing prod obj not working. fix this.
+    function getDetails(prod){
+        console.log("p:" +prod);
+        console.log("t:" +prod.title_slug);
+        // $("#card-"+title).html("{{}}") replace placeholder with product details
+    }
+</script>
+
+
 {% endblock script %}
 
 {% block content%}
@@ -83,8 +94,9 @@
                                             Used to be: {{product.original_price}}<br>
                                             <h4>${{product.modern_dollars}}</h4>
                                             <div class="row">
-                                                <a class="btn btn-primary mr-1 mt-1" data-toggle="collapse"
-                                                href="#{{ product.title_slug }}" role="button">
+                                                <a class="btn btn-primary mr-1 mt-1 view-details" data-toggle="collapse"
+                                                href="#{{ product.title_slug }}" role="button"
+                                                onclick="getDetails('{{product}}')">
                                                     <i class="fas fa-chevron-down"></i> View Details</a>
                                                 <a class="btn btn-primary mt-1 addtocart" id="addtocart" data-toggle="popover" data-placement="right" data-content='Added to Cart' href="#">
                                                     <i class="fas fa-cart-plus"></i> Add to Cart</a>
@@ -94,8 +106,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="collapse pt-2" id="{{ product.title_slug }}" style="width: 100%">
-                                        <div class="card card-body">
-                                            {% include "product_detail.html" %}
+                                        <div class="card card-body" id="card-{{ product.title_slug }}">
+                                            Details goes here.
                                         </div>
                                     </div>
                                 </div>
