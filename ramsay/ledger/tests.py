@@ -10,6 +10,7 @@ That should fix it
 '''
 
 from django.test import TestCase
+from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import Citation, Customer, Category, Product, Ledger
 import os
@@ -37,6 +38,29 @@ class CustomerTest(TestCase):
 		self.assertEqual(ln, cust.last_name)
 		self.assertEqual(oc, cust.occupation)
 
+	def test_customer_list_view(self):
+		response = self.client.get(reverse("customer-list"))
+		self.assertEqual(response.status_code, 200)
+		self.assertIsNot(response.content, None)
+		self.assertIsNot(response.content, '')
+
+class StaticViewTest(TestCase):
+	def test_home_view(self):
+		response = self.client.get('')
+		self.assertEqual(response.status_code, 200)
+		self.assertIsNot(response.content, None)
+		self.assertIsNot(response.content, '')
+	def test_visual_view(self):
+		response = self.client.get('/visual/')
+		self.assertEqual(response.status_code, 200)
+		self.assertIsNot(response.content, None)
+		self.assertIsNot(response.content, '')
+	def test_about_view(self):
+		response = self.client.get('/about/')
+		self.assertEqual(response.status_code, 200)
+		self.assertIsNot(response.content, None)
+		self.assertIsNot(response.content, '')
+
 class CategoryTest(TestCase):
 	def test_string_representation(self):
 		nm = "Tools"
@@ -44,6 +68,19 @@ class CategoryTest(TestCase):
 		cat = Category.objects.create(name=nm, name_slug=slg)
 		self.assertEqual(nm, cat.name)
 		self.assertEqual(slg, cat.name_slug)
+
+	def test_category_view(self):
+		response = self.client.get(reverse('category-list'))
+		self.assertEqual(response.status_code, 200)
+		self.assertIsNot(response.content, None)
+		self.assertIsNot(response.content, '')
+
+	def test_category_view_with_category(self):
+		response = self.client.get(f'{reverse("category-list")}#craft')
+		self.assertEqual(response.status_code, 200)
+		self.assertIsNot(response.content, None)
+		self.assertIsNot(response.content, '')
+
 
 prod = None
 
@@ -106,7 +143,17 @@ class ProductTest(TestCase):
 		self.assertEqual(pg, prod.page)
 		self.assertEqual(qty, prod.quantity)
 		self.assertEqual(cat, prod.category)
-		
+
+	def test_product_view(self):
+		response = self.client.get('/categories/craft/indigo/')
+		self.assertEqual(response.status_code, 200)
+		self.assertIsNot(response.content, None)
+		self.assertIsNot(response.content, '')
+
+	def test_product_view_not_exists(self):
+		response = self.client.get('/categories/craft/asdf/')
+		self.assertEqual(response.status_code, 200)
+
 
 class LedgerTest(TestCase):
 	def test_string_representation(self):

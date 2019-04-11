@@ -23,20 +23,27 @@ class CategoryListView(generic.ListView):
     model        = Category
     paginate_by  = 10
     template_name= 'category_list.html'
+
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
         return render(request, 'category_list.html', {'categories':categories})
+
 class ProductDetailView(generic.DetailView):
     model=Product
     template_name = 'product_detail.html'
+
     def get(self, request, *args, **kwargs):
-        product = Product.objects.get(title_slug=kwargs['product'])
+        try:
+            product = Product.objects.get(title_slug=kwargs['product'])
+        except:
+            return render(request, self.template_name, {'product': None})
         return render(request, self.template_name, {'product': product})
 
 class CustomerListView(generic.ListView):
     model       = Customer
     paginate_by = 10
     template_name = 'customer_list.html'
+
     def get(self, request, *args, **kwargs):
         customers = Customer.objects.all()
         return render(request, 'customer_list.html', {'customers' : customers})

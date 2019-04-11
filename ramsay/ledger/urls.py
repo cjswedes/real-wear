@@ -32,6 +32,8 @@ urlpatterns = [
     path('categories/', views.CategoryListView.as_view(), name="category-list"),
     # TODO: refreshing following page jumps to bottom of category page.
     # path('categories/<slug:category>/', RedirectView.as_view(url='categories/'), name="category-list"),
+
+    #currently this is never being called
     path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail"),
     path('customers/', views.CustomerListView.as_view(), name="customer-list")
 
