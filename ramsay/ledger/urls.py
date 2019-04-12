@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
@@ -30,8 +30,10 @@ urlpatterns = [
     path('visual/', TemplateView.as_view(template_name="visual.html")),
     path('about/', TemplateView.as_view(template_name="about.html")),
     path('categories/', views.CategoryListView.as_view(), name="category-list"),
+    path('categories/<str:category_name>/', views.CategoryListView.as_view(), name="category-list-single"),
+
     # TODO: refreshing following page jumps to bottom of category page.
-    # path('categories/<slug:category>/', RedirectView.as_view(url='categories/'), name="category-list"),
+    # path('categories/<slug:category-slug>/', RedirectView.as_view(url='categories/'), name="category-list"),
 
     #currently this is never being called
     path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail"),

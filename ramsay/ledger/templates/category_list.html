@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %}
 {% block script %}
 <script>
     $(".list-group-item-action.not-all").on("click", function() {
@@ -29,7 +30,7 @@
 </script>
 
 {% endblock script %}
-
+{% endcomment %}
 {% block content%}
 
 <div class="container">
@@ -41,14 +42,29 @@
 
                 {% if categories %}
                 <div class="list-group list-group-root well">
-                    <a href="{% url 'category-list' %}" class="list-group-item list-group-item-action active">
+
+                    {% if selected == 'ViewAll'%}
+                    <a href="{% url 'category-list'%}" class="list-group-item list-group-item-action active">
                         View All
                     </a>
+                    {% else %}
+                    <a href="{% url 'category-list'%}" class="list-group-item list-group-item-action">
+                        View All
+                    </a>
+                    {% endif %}
+
                     {% for category in categories %}
-                    <a href="#{{ category.name_slug }}" class="list-group-item list-group-item-action not-all"> <!---->
+                    {% if selected == category.name %}
+                    <a href="{% url 'category-list-single' category.name %}" class="list-group-item list-group-item-action not-all active"> <!---->
                     <!-- data-toggle="collapse" data-target="#{{category.name_slug}}"> -->
                         {{ category.name }}
                     </a>
+                    {% else %}
+                    <a href="{% url 'category-list-single' category.name %}" class="list-group-item list-group-item-action not-all"> <!---->
+                    <!-- data-toggle="collapse" data-target="#{{category.name_slug}}"> -->
+                        {{ category.name }}
+                    </a>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 {% else %}
@@ -59,12 +75,10 @@
         </div>
         <div class='col-10'>
             <div class="d-flex flex-column col">
-                {% if categories %}
                 <div class="list-group well" id="prodlist">
-                    {% for category in categories %}
                     <div class="list-group collapse show" id="{{category.name_slug}}">
-                        {% if category.products.count > 0 %}
-                        {% for product in category.products.all %}
+                        {% if products.count > 0 %}
+                        {% for product in products %}
                         <div class="list-group-item">
                             <div class="container">
                                 <div class="row">
@@ -84,8 +98,10 @@
                                             <h4>${{product.modern_dollars}}</h4>
                                             <div class="row">
                                                 <a class="btn btn-primary mr-1 mt-1" data-toggle="collapse"
-                                                href="#{{ product.title_slug }}" role="button">
-                                                    <i class="fas fa-chevron-down"></i> View Details</a>
+                                                href="{{ url 'product-detail' product.title_slug }}" role="button">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                    View Details
+                                                </a>
                                                 <a class="btn btn-primary mt-1 addtocart" id="addtocart" data-toggle="popover" data-placement="right" data-content='Added to Cart' href="#">
                                                     <i class="fas fa-cart-plus"></i> Add to Cart</a>
                                             </div>
@@ -106,11 +122,7 @@
                         <p class="list-group-item"> No products found. </p>
                         {% endif %}
                     </div>
-                    {% endfor %}
                 </div>
-                {% else %}
-                <p> No categories found. </p>
-                {% endif %}
             </div>
         </div>
     </div>
