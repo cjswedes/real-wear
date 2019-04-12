@@ -26,11 +26,24 @@
     integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
   <!-- CSS for popover shopping-->
   <!-- TODO: move style to separate file -->
-  <style> 
-      .popover {max-width:100% !important;} 
-      #cart-container {width:500px;}
-      .cart-hd-ft {margin-top: 0; margin-bottom: 0;}
-      .cart-row {margin-top: .5rem; margin-bottom:.5rem;}
+  <style>
+    .popover {
+      max-width: 100% !important;
+    }
+
+    #cart-container {
+      width: 500px;
+    }
+
+    .cart-hd-ft {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .cart-row {
+      margin-top: .5rem;
+      margin-bottom: .5rem;
+    }
   </style>
 
   <title>Ledger of William Ramsay</title>
@@ -95,9 +108,10 @@
           <i class="fas fa-search"></i>
         </button>
       </form>
-      <button class="btn btn-outline-secondary my-2 my-lg-0" id="cart" data-toggle="popover" data-container="body" data-placement="bottom" data-html="true" data-content='{% include "cart.html" %}'>
-         <!-- TODO: add back after debug: data-trigger="focus"  -->
-        <i class="fas fa-shopping-cart"></i> 
+      <!-- TODO: add back after debug: data-trigger="focus"  -->
+      <button id="cart" type="button" class="btn btn-outline-secondary my-2 my-lg-0" data-toggle="popover"
+        data-placement="bottom">
+        <i class="fas fa-shopping-cart"></i>
       </button>
     </div>
   </nav>
@@ -108,24 +122,47 @@
     <!-- Required JavaScript for drop down menu and responsive menu-->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- ajax require non-slim jquery -->
-    <script type = "text/javascript" 
-         src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
       crossorigin="anonymous"></script>
-      <!-- TODO: use bootstrap.min.js in static -->
+    <!-- TODO: use bootstrap.min.js in static -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
+
     <!-- Script for shopping cart popover-->
     <script>
-    // $(function () { $("[data-toggle='popover']").popover(); });
-    $('#cart').popover();
-    $('.popover-dismiss').popover({trigger: 'focus'});
+      // $(function () { $("[data-toggle='popover']").popover(); });
+
+      $('.popover-dismiss').popover({ trigger: 'focus' });
+
+      $('#cart').popover({
+        html: true,
+        content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft"><div class="row"><div class="col"></div><div class="col text-right">Subtotal: <span class="text-danger">$0.00</span></div></div></div>',
+      }).on('shown.bs.popover', function () {
+        $("#cartrows").append('<h3>TODO: <br>1. Lookup price<br>2. Calculate subtotal</h3>');
+        var dict = Object.keys(sessionStorage);
+        for (var i in dict) {
+          $("#cartrows").append('<div class="row cart-row"><div class="col">'+dict[i]+'</div><div class="col row text-right"><div class="col">'+sessionStorage.getItem(dict[i])+'</div><div class="col">$1.00</div></div></div>');
+          // TODO: get price&title by title_slug
+          //TODO: update subtotal
+        }
+        //TODO: update subtotal div
+      });
+
+      function getCart() {
+        var dict = Object.keys(sessionStorage);
+        for (var i in dict) {
+          console.log(i, dict[i], sessionStorage.getItem(dict[i]));
+          $("#carttest").append(dict[i], ": ", sessionStorage.getItem(dict[i]), "<br>");
+        }
+      }
+
     </script>
     {% block script %}
-    {% endblock script %}  
+    {% endblock script %}
   </body>
 </div>
 
@@ -135,6 +172,4 @@
       asmartin@wisc.edu</a></p>
 </footer>
 {% endblock footer %}
-
-
 </html>
