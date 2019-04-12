@@ -18,7 +18,6 @@
     // Currently using session storage, cart info will be lost when the tab closed.
     function additem(prod, title, price) {
         if (typeof (Storage) !== "undefined") {
-            console.log("title: " + title);
             if (sessionStorage.getItem(prod)) {
                 sessionStorage.setItem(prod, JSON.stringify({ p: price, t: title, c: Number(JSON.parse(sessionStorage.getItem(prod)).c) + 1 }));
             } else {

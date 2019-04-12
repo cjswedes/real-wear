@@ -27,12 +27,12 @@ class ProjectTests(TestCase):
 
     def test_categorypage(self):
         cat = models.Category("Tools", "tools")
-        response = self.client.get('/categories/#tools/')
+        response = self.client.get('/categories/Tools/')
         self.assertEqual(response.status_code, 200)
 
     def test_productpage(self):
         prod = models.Product("Hammer", "hammer", "Hammer of Thor", "https://google.com", "Steel", "10x10x10", "Somewhere", "wikipedia", "google.com", "description of somewhere", "CN", "toys produced in China", "Steel from China", "this is a fake hammer", "MIT", "https://opensource.org/licenses/MIT", "1000", "50", "40", "2", "1", "tools")
-        response = self.client.get('/#hammer')
+        response = self.client.get('/categories/Tools/awl/')
         self.assertEqual(response.status_code, 200)
 
     ''' testing absolute url
@@ -49,3 +49,8 @@ class ProjectTests(TestCase):
         response = self.client.get(self.entry.get_absolute_url())
         self.assertContains(response, self.entry.body)
     '''
+
+# TODO: test onclick behavior
+# class ViewDetailTests(TestCase):
+# Class AddItemTests(TestCase):
+# Class ViewCartTests(TestCase):
