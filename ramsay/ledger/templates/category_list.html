@@ -16,12 +16,13 @@
     };
 
     // Currently using session storage, cart info will be lost when the tab closed.
-    function additem(prod) {
+    function additem(prod, title, price) {
         if (typeof (Storage) !== "undefined") {
+            console.log("title: " + title);
             if (sessionStorage.getItem(prod)) {
-                sessionStorage.setItem(prod, Number(sessionStorage.getItem(prod)) + 1);
+                sessionStorage.setItem(prod, JSON.stringify({ p: price, t: title, c: Number(JSON.parse(sessionStorage.getItem(prod)).c) + 1 }));
             } else {
-                sessionStorage.setItem(prod, 1);
+                sessionStorage.setItem(prod, JSON.stringify({ p: price, t: title, c: 1 }));
             }
         } else {
             alert("Sorry, your browser does not support shopping cart.\n https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage#Browser_compatibility");
@@ -105,7 +106,7 @@
                                             <a class="btn btn-primary mt-1 addtocart" id="addtocart"
                                                 data-toggle="popover" data-placement="right"
                                                 data-content='{{product.title}} Added to Cart' href="#/"
-                                                onclick="additem('{{product.title_slug}}')">
+                                                onclick="additem('{{product.title_slug}}','{{product.title}}','{{product.modern_dollars}}');">
                                                 <i class="fas fa-cart-plus"></i> Add to Cart</a>
                                         </div>
 

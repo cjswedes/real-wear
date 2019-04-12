@@ -103,13 +103,12 @@
       -->
       <form class="form-inline my-2 my-lg-0">
         <input id="keywords" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button id="search" class="btn btn-outline-secondary my-2 my-sm-0 mr-sm-2"  onclick="searchfunc()">
-          <i class="fas fa-search"></i>
+        <button id="search" class="btn btn-outline-secondary my-2 my-sm-0 mr-sm-2">
+          <i class=" fas fa-search"></i>
         </button>
       </form>
-      <!-- TODO: add back after debug: data-trigger="focus"  -->
       <button id="cart" type="button" class="btn btn-outline-secondary my-2 my-lg-0" data-toggle="popover"
-        data-placement="bottom">
+        data-trigger="focus" data-placement="bottom">
         <i class="fas fa-shopping-cart"></i>
       </button>
     </div>
@@ -133,33 +132,20 @@
 
     <!-- Script for shopping cart popover-->
     <script>
-      // $(function () { $("[data-toggle='popover']").popover(); });
-
       $('.popover-dismiss').popover({ trigger: 'focus' });
-
       $('#cart').popover({
         html: true,
-        content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft"><div class="row"><div class="col"></div><div class="col text-right">Subtotal: <span class="text-danger">$0.00</span></div></div></div>',
+        content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">',
       }).on('shown.bs.popover', function () {
-        $("#cartrows").append('<h3>TODO: <br>1. Lookup price<br>2. Calculate subtotal</h3>');
+        var sum = 0;
         var dict = Object.keys(sessionStorage);
         for (var i in dict) {
-          $("#cartrows").append('<div class="row cart-row"><div class="col">' + dict[i] + '</div><div class="col row text-right"><div class="col">' + sessionStorage.getItem(dict[i]) + '</div><div class="col">$1.00</div></div></div>');
-          // TODO: get price&title by title_slug
-
-          //TODO: update subtotal
+          var prod = JSON.parse(sessionStorage.getItem(dict[i]));
+          $("#cartrows").append('<div class="row cart-row"><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div>');
+          sum += prod.p * prod.c;
         }
-        //TODO: update subtotal div
+        $("#cart-container").append('<div class="row"><div class="col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
       });
-
-      console.log('products: '+ '{{products}}');
-
-      function searchfunc(kw) {
-        // TODO: not called? 
-        console.log("searching: " + document.getElementById('keywords').value);
-        // console.log($('#keywords').value);
-      }
-
     </script>
     {% block script %}
     {% endblock script %}

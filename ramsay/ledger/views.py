@@ -4,11 +4,9 @@ from django.core import serializers
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import Category, Product, Customer
-import logging
 
 def navbar(request):
-    # product = Product.objects.get(title_slug=kwargs['product'])
-    return render(request, 'base.html', {'products' : 'test'})
+    return render(request, 'base.html')
 
 def home(request):
     return render(request, 'home.html')
@@ -19,6 +17,8 @@ def visual(request):
 def about(request):
     return render(request, 'about.html')
 
+def search(request):
+    return render(request, 'search_results.html')    
 
 class CategoryListView(generic.ListView):
     model        = Category
