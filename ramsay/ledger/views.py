@@ -1,14 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from django.core import serializers
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import Category, Product, Customer
+import logging
+
 def navbar(request):
-    context = {}
-    # context['hello'] = 'hello world!'
-    # return HttpResponse("Hello world!")
-    return render(request, 'base.html', context)
+    # product = Product.objects.get(title_slug=kwargs['product'])
+    return render(request, 'base.html', {'products' : 'test'})
 
 def home(request):
     return render(request, 'home.html')

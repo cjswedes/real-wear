@@ -22,7 +22,7 @@ from django.views.generic.base import RedirectView
 from . import views
 
 urlpatterns = [
-    # url('navbar', view.navbar),
+    path('navbar/', TemplateView.as_view(template_name="base.html")),
     #url(r'^$',views.home),
     #url('visual', views.visual),
     #url('about', views.about)

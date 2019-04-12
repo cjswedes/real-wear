@@ -103,7 +103,7 @@
       -->
       <form class="form-inline my-2 my-lg-0">
         <input id="keywords" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button id="search" class="btn btn-outline-secondary my-2 my-sm-0 mr-sm-2" type="submit" onclick="search()">
+        <button id="search" class="btn btn-outline-secondary my-2 my-sm-0 mr-sm-2"  onclick="searchfunc()">
           <i class="fas fa-search"></i>
         </button>
       </form>
@@ -146,17 +146,19 @@
         for (var i in dict) {
           $("#cartrows").append('<div class="row cart-row"><div class="col">' + dict[i] + '</div><div class="col row text-right"><div class="col">' + sessionStorage.getItem(dict[i]) + '</div><div class="col">$1.00</div></div></div>');
           // TODO: get price&title by title_slug
+
           //TODO: update subtotal
         }
         //TODO: update subtotal div
       });
 
-      function search() {
+      console.log('products: '+ '{{products}}');
+
+      function searchfunc(kw) {
         // TODO: not called? 
-        console.log("test");
+        console.log("searching: " + document.getElementById('keywords').value);
         // console.log($('#keywords').value);
       }
-}
 
     </script>
     {% block script %}
