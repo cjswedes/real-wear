@@ -1,8 +1,0 @@
-__pycache__
-*.DS_Store
-*.pyc
-.vscode
-
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
