@@ -6,7 +6,14 @@ from django.views import generic
 from .models import Category, Product, Customer
 
 def navbar(request):
+<<<<<<< HEAD
     return render(request, 'base.html')
+=======
+    #product = Product.objects.get(title_slug="iron-pot")
+    category = Category.objects.get(name="Tool")
+    #print('hello world')
+    return render(request, 'base.html', {'products' : category})
+>>>>>>> fcfb8ef218c4971cb8a0de9fbe17345950b08a6e
 
 def home(request):
     return render(request, 'home.html')
@@ -26,16 +33,24 @@ class CategoryListView(generic.ListView):
     template_name= 'category_list.html'
 
     def get(self, request, *args, **kwargs):
-        if 'category_name' in kwargs.keys():
-            selected = kwargs['category_name']
-            products = Product.objects.filter(category=kwargs['category_name'])\
-                                      .only('title_slug', 'title', 'materials', 'dimensions',
-                                            'origin', 'original_price', 'modern_dollars')
-        else:
+        search = request.GET.get('search', None)
+        if search:
             selected = None
-            products = Product.objects.all()\
-                                      .only('title_slug', 'title', 'materials', 'dimensions',
-                                            'origin', 'original_price', 'modern_dollars')
+            #search query
+            products = Product.objects.filter(title__icontains=search).only('title_slug', 'title', 'materials', 'dimensions',
+                                                'origin', 'original_price', 'modern_dollars')
+
+        else:
+            if 'category_name' in kwargs.keys():
+                selected = kwargs['category_name']
+                products = Product.objects.filter(category=kwargs['category_name'])\
+                                          .only('title_slug', 'title', 'materials', 'dimensions',
+                                                'origin', 'original_price', 'modern_dollars')
+            else:
+                selected = None
+                products = Product.objects.all()\
+                                          .only('title_slug', 'title', 'materials', 'dimensions',
+                                                'origin', 'original_price', 'modern_dollars')
         categories = Category.objects.all().only('name', 'name_slug')
         return render(request, 'category_list.html', {'categories': categories, 'products': products, 'selected': selected})
 
