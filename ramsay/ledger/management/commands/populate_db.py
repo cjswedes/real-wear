@@ -46,12 +46,12 @@ class Command(BaseCommand):
             try:
                 category.save()
                 customer.save()
+                citation.save()
             except Exception as exc:
                  # if the're a problem anywhere, you wanna know about it
                  print('Error saving customer: %s' % exc)
             try:
                 product.save()
-                citation.save()
             except Exception as exc:
                 # if the're a problem anywhere, you wanna know about it
                 print('Error saving citation: %s' % exc)

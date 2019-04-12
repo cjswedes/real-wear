@@ -3,44 +3,22 @@
 
 {% block script %}
 <script>
-    $(".list-group-item-action.not-all").on("click", function() {
-        if(!$(this).hasClass("active")){
-            // prodlist
-            var pdlst = $(this).parentsUntil(".container").siblings(".col-10").find("#prodlist");
-            // remove collapse all categories from prodlist
-            console.log(pdlst.find(".list-group.collapse.show").removeClass("show"));
-            // remove active from .list-group-item-action.action
-            $(this).siblings(".active").removeClass("active");
-            // show $(this) in prodlist
-            pdlst.find($(this).attr('href')).collapse("show");
-            // active $(this)
-            $(this).toggleClass("active");
-        }  
-    });
-    $(".list-group-item-action").on("click", function(){
-        if($(this).hasClass("active")){}
-    });
     $('.addtocart').popover().click(function () {
     setTimeout(function () {
         $('.addtocart').popover('hide');
     }, 1000);
     // TODO: storing item here
     });
-</script>
 
-<!-- fetch product detail on click -->
-<script>
-    // TODO: passing prod obj not working. fix this.
-    function getDetails(prod){
-        console.log("p:" +prod);
-        console.log("t:" +prod.title_slug);
-        // $("#card-"+title).html("{{}}") replace placeholder with product details
-    }
-</script>
+    function getDetails(prodtitle){
+        $("#"+prodtitle).collapse("toggle");  
+        // TODO: only load on show, collapsible status check not working.
+        $("#"+prodtitle).find(".card.card-body").load($("#btn-"+prodtitle).attr("href"));
+    };
 
+</script>
 
 {% endblock script %}
-
 {% block content%}
 
 <div class="container">
@@ -48,18 +26,29 @@
     <div class="row collapse-group">
         <div class='col-2'>
             <div class="list-group">
-                <!-- TODO: find more elegant way of sorting by categories, current JS collapse way isn't 100% correct when you click quick enough.-->
-
                 {% if categories %}
                 <div class="list-group list-group-root well">
-                    <a href="{% url 'category-list' %}" class="list-group-item list-group-item-action active">
+                    <!-- TODO: @Carter, active for viewall seems not working; always in else -->
+                    {% if selected == 'ViewAll'%}
+                    <a href="{% url 'category-list'%}" class="list-group-item list-group-item-action active">
                         View All
                     </a>
+                    {% else %}
+                    <a href="{% url 'category-list'%}" class="list-group-item list-group-item-action">
+                        View All
+                    </a>
+                    {% endif %}
+
                     {% for category in categories %}
-                    <a href="#{{ category.name_slug }}" class="list-group-item list-group-item-action not-all"> <!---->
-                    <!-- data-toggle="collapse" data-target="#{{category.name_slug}}"> -->
+                    {% if selected == category.name %}
+                    <a href="{% url 'category-list-single' category.name %}" class="list-group-item list-group-item-action not-all active"> 
                         {{ category.name }}
                     </a>
+                    {% else %}
+                    <a href="{% url 'category-list-single' category.name %}" class="list-group-item list-group-item-action not-all"> 
+                        {{ category.name }}
+                    </a>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 {% else %}
@@ -70,12 +59,10 @@
         </div>
         <div class='col-10'>
             <div class="d-flex flex-column col">
-                {% if categories %}
                 <div class="list-group well" id="prodlist">
-                    {% for category in categories %}
                     <div class="list-group collapse show" id="{{category.name_slug}}">
-                        {% if category.products.count > 0 %}
-                        {% for product in category.products.all %}
+                        {% if products.count > 0 %}
+                        {% for product in products %}
                         <div class="list-group-item">
                             <div class="container">
                                 <div class="row">
@@ -94,10 +81,10 @@
                                             Used to be: {{product.original_price}}<br>
                                             <h4>${{product.modern_dollars}}</h4>
                                             <div class="row">
-                                                <a class="btn btn-primary mr-1 mt-1 view-details" data-toggle="collapse"
-                                                href="#{{ product.title_slug }}" role="button"
-                                                onclick="getDetails('{{product}}')">
-                                                    <i class="fas fa-chevron-down"></i> View Details</a>
+                                                <a class="btn btn-primary mr-1 mt-1" id="btn-{{product.title_slug}}" data-toggle="collapse" role="button" href="{% url 'product-detail' selected product.title_slug %}" onclick="getDetails('{{product.title_slug}}')">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                    View Details
+                                                </a>
                                                 <a class="btn btn-primary mt-1 addtocart" id="addtocart" data-toggle="popover" data-placement="right" data-content='Added to Cart' href="#">
                                                     <i class="fas fa-cart-plus"></i> Add to Cart</a>
                                             </div>
@@ -106,8 +93,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="collapse pt-2" id="{{ product.title_slug }}" style="width: 100%">
-                                        <div class="card card-body" id="card-{{ product.title_slug }}">
-                                            Details goes here.
+                                        <div class="card card-body">
+                                                <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -118,11 +107,7 @@
                         <p class="list-group-item"> No products found. </p>
                         {% endif %}
                     </div>
-                    {% endfor %}
                 </div>
-                {% else %}
-                <p> No categories found. </p>
-                {% endif %}
             </div>
         </div>
     </div>
