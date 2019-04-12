@@ -6,14 +6,7 @@ from django.views import generic
 from .models import Category, Product, Customer
 
 def navbar(request):
-<<<<<<< HEAD
     return render(request, 'base.html')
-=======
-    #product = Product.objects.get(title_slug="iron-pot")
-    category = Category.objects.get(name="Tool")
-    #print('hello world')
-    return render(request, 'base.html', {'products' : category})
->>>>>>> fcfb8ef218c4971cb8a0de9fbe17345950b08a6e
 
 def home(request):
     return render(request, 'home.html')
