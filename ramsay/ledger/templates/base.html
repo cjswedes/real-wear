@@ -101,8 +101,8 @@
       <!-- TODO: move search bar and cart button out,
         https://www.codeply.com/go/TWZGiy3VGw
       -->
-      <form class="form-inline my-2 my-lg-0">
-        <input id="keywords" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <form action="{% url 'category-list' %}" method="GET" class="form-inline my-2 my-lg-0">
+        <input id="keywords" name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" >
         <button id="search" class="btn btn-outline-secondary my-2 my-sm-0 mr-sm-2"  onclick="searchfunc()">
           <i class="fas fa-search"></i>
         </button>
@@ -152,7 +152,7 @@
         //TODO: update subtotal div
       });
 
-      console.log('products: '+ '{{products}}');
+      //console.log('products: '+ '{{products.name}}');
 
       function searchfunc(kw) {
         // TODO: not called? 
