@@ -38,5 +38,6 @@ urlpatterns = [
     #currently this is never being called
     path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail"),
     path('customers/', views.CustomerListView.as_view(), name="customer-list")
+    
 
 ]

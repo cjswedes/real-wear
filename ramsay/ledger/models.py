@@ -43,12 +43,12 @@ class Product(models.Model):
 	origin_description   = models.TextField(blank=True, null=True)
 	production_country   = models.CharField(max_length=64, blank=True, null=True)
 	production_city      = models.CharField(max_length=64, blank=True, null=True)
+	production_longitude = models.DecimalField(max_digits=7, decimal_places=4, default=0.0, blank=True, null=True) #east is positive
 	production_latitude  = models.DecimalField(max_digits=6, decimal_places=4, default=0.0, blank=True, null=True)  #north is positive
-	production longitude = models.DecimalField(max_digits=7, decimal_places=4, default=0.0, blank=True, null=True) #east is positive
-	production_detail    = models.CharField(max_length=128, blank=True, null=True)
+	#production_detail    = models.CharField(max_length=128, blank=True, null=True)
 	materials_country    = models.CharField(max_length=64, blank=True, null=True)
-	materials_latitude   = models.DecimalField(max_digits=6, decimal_places=4, default=0.0, blank=True, null=True)  #north is positive
 	materials_longitude  = models.DecimalField(max_digits=7, decimal_places=4, default=0.0, blank=True, null=True) #east is positive
+	materials_latitude   = models.DecimalField(max_digits=6, decimal_places=4, default=0.0, blank=True, null=True)  #north is positive
 	description          = models.TextField(blank=True, null=True)
 
 	license   = models.CharField(max_length=64, blank=True, null=True) #can limit to specific choices
