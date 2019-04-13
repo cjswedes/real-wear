@@ -3,12 +3,19 @@ from ledger.models import Ledger, Citation, Product, Customer, Category
 import pandas
 
 class Command(BaseCommand):
-    args = '<foo bar ...>'
-    help = 'our help string comes here'
-
+    #args = '<foo bar ...>'
+    #help = 'our help string comes here'
+    def add_arguments(self, parser):
+        parser.add_argument( 
+            '--debug', 
+            action='store_true',
+            help='Run command without saving items. Used for testing.',)
     def handle(self, *args, **options):
-        ledger_df = pandas.read_csv('ledger/data/example_ledger.csv')
+        ledger_df = pandas.read_csv('ledger/data/example_ledger.csv', encoding='latin1')
+        fake = options['debug']
         for index, entry in ledger_df.iterrows():
+            if fake:
+                print("row: %d" % index)
             category = Category(name=entry['department'],
                                 name_slug=entry['department'])
             citation = Citation(author=entry['author'],
@@ -20,19 +27,49 @@ class Command(BaseCommand):
             customer = Customer(first_name=entry['customer'].split(' ')[0],
                                 last_name=entry['customer'].split(' ')[1],
                                 occupation='baker')
+            pcoord = str(entry['ProductionCoordinates'])
+            mcoord = str(entry['MaterialsCoordinates'])
+            if pcoord == 'nan':
+                pcoord = ','
+            elif mcoord == 'nan':
+                mcoord = ','
+            ptokens = pcoord.split(',')
+            mtokens = pcoord.split(',')
+            def coordinate_clean(token):
+                if token == '':
+                    return 0.0
+                token = token.replace(u'\N{DEGREE SIGN}', '')
+                cleaned = float(token.strip('NSEW'))
+                if 'S' in token:
+                    cleaned = -1.0*cleaned
+                elif 'W' in token:
+                    cleaned = -1.0*cleaned
+                return cleaned
+
+            pclean = list(map(coordinate_clean, ptokens))
+            mclean = list(map(coordinate_clean, mtokens))
+
+            if fake:
+                print("\t" + str(pclean))
+                print("\t" + str(mclean))
+
             product = Product(title=entry['title'],
                     title_slug=entry['self'],
                     artifact=entry['artifact'],
                     image=None,  # TODO: actually load the image
                     materials=entry['materials'],
                     dimensions=entry['dimensions'],
-                    origin=entry['origin'],
+                    #origin=entry['origin'],
                     collection=entry['collection'],
                     link=entry['link'],
                     origin_description=entry['origin2'],
                     production_country=entry['production1'],
-                    production_detail=entry['production2'],
-                    materials_location=entry['materials2'],
+                    production_city=entry['production2'],
+                    production_latitude=pclean[0],
+                    production_longitude=pclean[1],
+                    materials_latitude=mclean[0],
+                    materials_longitude=mclean[1],
+                    #materials_location=entry['materials2'],
                     description=entry['description'],
                     license=entry['license'],
                     license_link=entry['link2'],
@@ -44,14 +81,16 @@ class Command(BaseCommand):
                     category=category)
 
             try:
-                category.save()
-                customer.save()
-                citation.save()
+                if not fake:
+                    category.save()
+                    customer.save()
+                    citation.save()
             except Exception as exc:
                  # if the're a problem anywhere, you wanna know about it
                  print('Error saving customer: %s' % exc)
             try:
-                product.save()
+                if not fake:
+                    product.save()
             except Exception as exc:
                 # if the're a problem anywhere, you wanna know about it
                 print('Error saving citation: %s' % exc)
@@ -67,7 +106,8 @@ class Command(BaseCommand):
                                   )
 
             try:
-                ledger_entry.save()
+                if not fake:
+                    ledger_entry.save()
             except Exception as exc:
                  # if the're a problem anywhere, you wanna know about it
                  print('Error saving ledger entry: %s' % exc)

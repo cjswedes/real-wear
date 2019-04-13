@@ -34,15 +34,22 @@ class Product(models.Model):
 	dimensions = models.CharField(max_length=255, blank=True, null=True)
 
 
-	origin    = models.CharField(max_length=64, blank=True, null=True)
-	collection = models.CharField(max_length=255, blank=True, null=True)
-	link      = models.CharField(max_length=255, blank=True, null=True)
 
-	origin_description = models.TextField(blank=True, null=True)
-	production_country = models.CharField(max_length=64, blank=True, null=True)
-	production_detail  = models.CharField(max_length=128, blank=True, null=True)
-	materials_location = models.CharField(max_length=64, blank=True, null=True)
-	description        = models.TextField(blank=True, null=True)
+	#origin    = models.CharField(max_length=64, blank=True, null=True) deleted by morgan
+	collection = models.CharField(max_length=255, blank=True, null=True)
+	link       = models.CharField(max_length=255, blank=True, null=True)
+
+
+	origin_description   = models.TextField(blank=True, null=True)
+	production_country   = models.CharField(max_length=64, blank=True, null=True)
+	production_city      = models.CharField(max_length=64, blank=True, null=True)
+	production_longitude = models.DecimalField(max_digits=7, decimal_places=4, default=0.0, blank=True, null=True) #east is positive
+	production_latitude  = models.DecimalField(max_digits=6, decimal_places=4, default=0.0, blank=True, null=True)  #north is positive
+	#production_detail    = models.CharField(max_length=128, blank=True, null=True)
+	materials_country    = models.CharField(max_length=64, blank=True, null=True)
+	materials_longitude  = models.DecimalField(max_digits=7, decimal_places=4, default=0.0, blank=True, null=True) #east is positive
+	materials_latitude   = models.DecimalField(max_digits=6, decimal_places=4, default=0.0, blank=True, null=True)  #north is positive
+	description          = models.TextField(blank=True, null=True)
 
 	license   = models.CharField(max_length=64, blank=True, null=True) #can limit to specific choices
 
@@ -56,8 +63,8 @@ class Product(models.Model):
 	original_price = models.CharField(max_length=64)
 	#price_suffix = models.CharField(max_length=64) #can make this choices as well for the time?
 
-	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
-	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+	modern_pounds = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
+	modern_dollars = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
 
 	# TODO: is page a part of a product or a ledger entry?
 	page           = models.IntegerField(blank=True, null=True)
