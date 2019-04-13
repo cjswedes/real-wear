@@ -7,3 +7,4 @@ migrations
 *.JPG
 *.jpg
 .vscode
+.coverage
