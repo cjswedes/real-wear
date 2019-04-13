@@ -147,21 +147,10 @@
     }).on('shown.bs.popover', function () {
       var sum = 0; var dict = Object.keys(sessionStorage); for (var i in
         dict) {
-        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div
-            class= "row cart-row" >
-          <div class="col">' + prod.t + '</div>
-          <div class="col row text-right">
-            <div class="col">' + prod.c + '</div>
-            <div class="col">' + prod.p + '</div>
-          </div>
-      </div > ');
+        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" ><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div > ');
       sum += prod.p * prod.c;
       }
-      $("#cart-container").append('<div class="row">
-        < div class= "col" ></div >
-        <div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div>
-      </div >
-    </div > ');
+      $("#cart-container").append('<div class="row">< div class= "col" ></div ><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div ></div> ');
     });
   </script>
   {% block script %}
