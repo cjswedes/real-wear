@@ -1,5 +1,8 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.core.files.storage import FileSystemStorage
+
+fs = FileSystemStorage()
 
 
 #TODO: decide lengths for efficiency in storage
@@ -28,7 +31,7 @@ class Product(models.Model):
 	title_slug      = models.SlugField(max_length=255, primary_key=True, editable=False) #self
 	
 	artifact  = models.CharField(max_length=255) #artifact description
-	image     = models.ImageField(upload_to='ledger', blank=True, null=True)
+	image     = models.ImageField(storage=fs, blank=True, null=True)
 
 	materials = models.CharField(max_length=255 , blank=True, null=True)
 	dimensions = models.CharField(max_length=255, blank=True, null=True)

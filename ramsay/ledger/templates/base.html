@@ -56,7 +56,7 @@
     <div class=header-container>
       <div class=header-logo style="float:left; margin: 5px 25px 5px 25px;">
         <a href="https://wisc.edu">
-          <img src="{% static "uw-crest.svg" %}" alt="crest" height=60>
+          <img src="{% static 'uw-crest.svg' %}" alt="crest" height=60>
         </a>
       </div>
       <div class="header-title" style="margin-top: 5px">
@@ -90,7 +90,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <!-- TODO: change href, link to proper tableau -->
-            <a class="dropdown-item" href="/visual">Trade Route</a>
+            <a class="dropdown-item" href="{% url 'globe-list-view'%}">World View</a>
             <a class="dropdown-item" href="/bydept">By Department</a>
             <a class="dropdown-item" href="#">Statistics</a>
           </div>

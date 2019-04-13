@@ -2,6 +2,9 @@ from django.core.management.base import BaseCommand
 from ledger.models import Ledger, Citation, Product, Customer, Category
 import pandas
 
+from django.core.files import File
+import os
+
 class Command(BaseCommand):
     #args = '<foo bar ...>'
     #help = 'our help string comes here'
@@ -52,11 +55,12 @@ class Command(BaseCommand):
             if fake:
                 print("\t" + str(pclean))
                 print("\t" + str(mclean))
+                print("\t" + str(os.path.join('ledger/data/', entry['image'])))
 
             product = Product(title=entry['title'],
                     title_slug=entry['self'],
                     artifact=entry['artifact'],
-                    image=None,  # TODO: actually load the image
+                    image=File(open(os.path.join('ledger/data/', entry['image']), 'rb')),
                     materials=entry['materials'],
                     dimensions=entry['dimensions'],
                     #origin=entry['origin'],

@@ -1,21 +1,3 @@
-
- class Point extends React.Component	{
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		let point_proj = d3.geoOrthographic()
-
-		let point_generator = d3.geoPath().projection(projection)
-
-		let circle = d3.geoCircle().center([this.props.cx, this.props.cy]).radius(2)
-		let pathString = point_generator(circle())
-		return React.createElement("path", {d : pathString});
-	}
-}
-
-
 class Globe extends React.Component {
 	constructor(props) {
 		super(props);
@@ -51,7 +33,7 @@ class Globe extends React.Component {
 
 			//let point_generator = d3.geoPath().projection(point_proj)
 
-			let circle = d3.geoCircle().center([pair[0], pair[1]]).radius(0.5)
+			let circle = d3.geoCircle().center([pair[0], pair[1]]).radius(0.8)
 			let circleString = geoGenerator(circle())
 			return React.createElement("path", {d : circleString, key: index, id : "points"});
     	} ));
