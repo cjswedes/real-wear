@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.views import generic
 from .models import Category, Product, Customer
 
+'''
+# All in Class Based View already
 def navbar(request):
     return render(request, 'base.html')
 
@@ -19,6 +21,7 @@ def about(request):
 
 def search(request):
     return render(request, 'search_results.html')    
+'''
 
 class CategoryListView(generic.ListView):
     model        = Category
