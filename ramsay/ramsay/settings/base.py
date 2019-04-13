@@ -39,7 +39,8 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 CUSTOM_APPS = [
-    'ledger.apps.LedgerConfig'
+    'ledger.apps.LedgerConfig',
+    'globe.apps.GlobeConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS
 
@@ -146,3 +147,7 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'static','media')
+
+MEDIA_URL = '/media/'

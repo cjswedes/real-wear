@@ -9,6 +9,8 @@ migrations
 .vscode
 /static
 /ramsay/static
+/ramsay/ramsay/static
+.coverage
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
