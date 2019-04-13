@@ -31,19 +31,19 @@ class CategoryListView(generic.ListView):
             selected = None
             #search query
             products = Product.objects.filter(title__icontains=search).only('title_slug', 'title', 'materials', 'dimensions',
-                                                'origin', 'original_price', 'modern_dollars')
+                                                'production_city', 'original_price', 'modern_dollars')
 
         else:
             if 'category_name' in kwargs.keys():
                 selected = kwargs['category_name']
                 products = Product.objects.filter(category=kwargs['category_name'])\
                                           .only('title_slug', 'title', 'materials', 'dimensions',
-                                                'origin', 'original_price', 'modern_dollars')
+                                                'production_city', 'original_price', 'modern_dollars')
             else:
                 selected = None
                 products = Product.objects.all()\
                                           .only('title_slug', 'title', 'materials', 'dimensions',
-                                                'origin', 'original_price', 'modern_dollars')
+                                                'production_city', 'original_price', 'modern_dollars')
         categories = Category.objects.all().only('name', 'name_slug')
         return render(request, 'category_list.html', {'categories': categories, 'products': products, 'selected': selected})
 
