@@ -1,0 +1,14 @@
+#wrapper {
+  width: 600px;
+  margin: 20px auto;
+}
+
+#countries {
+  fill: #aaa;
+  stroke: #ddd;
+  stroke-width: 0.5;
+}
+#points { 
+  stroke-width: 0.5;
+  fill : #ff0000;
+}

@@ -1,14 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from django.core import serializers
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import Category, Product, Customer
+
+'''
+# All in Class Based View already
 def navbar(request):
-    context = {}
-    # context['hello'] = 'hello world!'
-    # return HttpResponse("Hello world!")
-    return render(request, 'base.html', context)
+    return render(request, 'base.html')
 
 def home(request):
     return render(request, 'home.html')
@@ -19,24 +19,53 @@ def visual(request):
 def about(request):
     return render(request, 'about.html')
 
+def search(request):
+    return render(request, 'search_results.html')    
+'''
+
 class CategoryListView(generic.ListView):
     model        = Category
     paginate_by  = 10
     template_name= 'category_list.html'
+
     def get(self, request, *args, **kwargs):
-        categories = Category.objects.all()
-        return render(request, 'category_list.html', {'categories':categories})
+        search = request.GET.get('search', None)
+        if search:
+            selected = None
+            #search query
+            products = Product.objects.filter(title__icontains=search).only('title_slug', 'title', 'materials', 'dimensions',
+                                                'production_city', 'original_price', 'modern_dollars')
+
+        else:
+            if 'category_name' in kwargs.keys():
+                selected = kwargs['category_name']
+                products = Product.objects.filter(category=kwargs['category_name'])\
+                                          .only('title_slug', 'title', 'materials', 'dimensions',
+                                                'production_city', 'original_price', 'modern_dollars')
+            else:
+                selected = None
+                products = Product.objects.all()\
+                                          .only('title_slug', 'title', 'materials', 'dimensions',
+                                                'production_city', 'original_price', 'modern_dollars')
+        categories = Category.objects.all().only('name', 'name_slug')
+        return render(request, 'category_list.html', {'categories': categories, 'products': products, 'selected': selected})
+
 class ProductDetailView(generic.DetailView):
     model=Product
     template_name = 'product_detail.html'
+
     def get(self, request, *args, **kwargs):
-        product = Product.objects.get(title_slug=kwargs['product'])
+        try:
+            product = Product.objects.get(title_slug=kwargs['product'])
+        except:
+            return render(request, self.template_name, {'product': None})
         return render(request, self.template_name, {'product': product})
 
 class CustomerListView(generic.ListView):
     model       = Customer
     paginate_by = 10
     template_name = 'customer_list.html'
+
     def get(self, request, *args, **kwargs):
         customers = Customer.objects.all()
         return render(request, 'customer_list.html', {'customers' : customers})
