@@ -100,7 +100,9 @@
         </li>
       </ul>
     </div>
+    {% block navbar%}
     <ul class="navbar-nav flex-row" style="position:fixed; right:1rem; top:87px;">
+      {% endblock navbar%}
       <li class="nav-item">
         <form action="{% url 'category-list' %}" method="GET" class="nav-item form-inline my-0 my-lg-0 mr-2">
           <input id="keywords" name="search" class="form-control mr-sm-2" type="search" placeholder="Search"
@@ -138,19 +140,28 @@
 
   <!-- Script for shopping cart popover-->
   <script>
-    $('.popover-dismiss').popover({ trigger: 'focus' });
-    $('#cart').popover({
+    $(' .popover-dismiss').popover({ trigger: 'focus' }); $('#cart').popover({
       html: true,
-      content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">',
+      content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">'
+      ,
     }).on('shown.bs.popover', function () {
-      var sum = 0;
-      var dict = Object.keys(sessionStorage);
-      for (var i in dict) {
-        var prod = JSON.parse(sessionStorage.getItem(dict[i]));
-        $("#cartrows").append('<div class="row cart-row"><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div>');
-        sum += prod.p * prod.c;
+      var sum = 0; var dict = Object.keys(sessionStorage); for (var i in
+        dict) {
+        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div
+            class= "row cart-row" >
+          <div class="col">' + prod.t + '</div>
+          <div class="col row text-right">
+            <div class="col">' + prod.c + '</div>
+            <div class="col">' + prod.p + '</div>
+          </div>
+      </div > ');
+      sum += prod.p * prod.c;
       }
-      $("#cart-container").append('<div class="row"><div class="col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
+      $("#cart-container").append('<div class="row">
+        < div class= "col" ></div >
+        <div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div>
+      </div >
+    </div > ');
     });
   </script>
   {% block script %}
