@@ -18,7 +18,6 @@
     // Currently using session storage, cart info will be lost when the tab closed.
     function additem(prod, title, price) {
         if (typeof (Storage) !== "undefined") {
-            console.log("title: " + title);
             if (sessionStorage.getItem(prod)) {
                 sessionStorage.setItem(prod, JSON.stringify({ p: price, t: title, c: Number(JSON.parse(sessionStorage.getItem(prod)).c) + 1 }));
             } else {
@@ -96,8 +95,8 @@
                                         Used to be: {{product.original_price}}<br>
                                         <h4>${{product.modern_dollars}}</h4>
                                         <div class="row">
-                                            <a class="btn btn-primary mr-1 mt-1" id="btn-{{product.title_slug}}"
-                                                data-toggle="collapse" role="button"
+                                            <a class="btn btn-primary mr-1 mt-1 viewdetails"
+                                                id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
                                                 href="{% url 'product-detail' selected product.title_slug %}"
                                                 onclick="getDetails('{{product.title_slug}}')">
                                                 <i class="fas fa-chevron-down"></i>

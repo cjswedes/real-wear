@@ -68,7 +68,7 @@
   {% endblock header %}
 
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#c5050c; font-weight: bold">
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
+    <button class="navbar-toggler flex-row" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       Menu <span class="navbar-toggler-icon"></span>
     </button>
@@ -89,9 +89,9 @@
             Visualization
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <!-- TODO: change href -->
+            <!-- TODO: change href, link to proper tableau -->
             <a class="dropdown-item" href="/visual">Trade Route</a>
-            <a class="dropdown-item" href="#">By Department</a>
+            <a class="dropdown-item" href="/bydept">By Department</a>
             <a class="dropdown-item" href="#">Statistics</a>
           </div>
         </li>
@@ -99,60 +99,63 @@
           <a class="nav-link" href="/about">About</a>
         </li>
       </ul>
-
-      <!-- TODO: move search bar and cart button out,
-        https://www.codeply.com/go/TWZGiy3VGw
-      -->
-      <form action="{% url 'category-list' %}" method="GET" class="form-inline my-2 my-lg-0">
-        <input id="keywords" name="search" class="form-control mr-sm-2" type="search" placeholder="Search"
-          aria-label="Search">
-        <button id="search" class="btn btn-outline-secondary my-2 my-sm-0 mr-sm-2"">
-          <i class=" fas fa-search"></i>
-        </button>
-      </form>
-      <button id="cart" type="button" class="btn btn-outline-secondary my-2 my-lg-0" data-toggle="popover"
-        data-trigger="focus" data-placement="bottom">
-        <i class="fas fa-shopping-cart"></i>
-      </button>
     </div>
+    <ul class="navbar-nav flex-row" style="position:fixed; right:1rem; top:87px;">
+      <li class="nav-item">
+        <form action="{% url 'category-list' %}" method="GET" class="nav-item form-inline my-0 my-lg-0 mr-2">
+          <input id="keywords" name="search" class="form-control mr-sm-2" type="search" placeholder="Search"
+            aria-label="Search">
+          <button id="search" class="btn btn-outline-secondary">
+            <i class=" fas fa-search"></i>
+          </button>
+        </form>
+      </li>
+      <li class="nav-item">
+        <button id="cart" type="button" class="nav-item btn btn-outline-secondary my-0 my-lg-0" data-toggle="popover"
+          data-trigger="focus" data-placement="bottom">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+      </li>
+    </ul>
   </nav>
+</div>
 
-  <body>
-    {% block content%}
-    {% endblock content%}
-    <!-- Required JavaScript for drop down menu and responsive menu-->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- ajax require non-slim jquery -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"></script>
-    <!-- TODO: use bootstrap.min.js in static -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"></script>
+<body>
+  {% block content%}
+  {% endblock content%}
+  <!-- Required JavaScript for drop down menu and responsive menu-->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- ajax require non-slim jquery -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <!-- TODO: use bootstrap.min.js in static -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 
-    <!-- Script for shopping cart popover-->
-    <script>
-      $('.popover-dismiss').popover({ trigger: 'focus' });
-      $('#cart').popover({
-        html: true,
-        content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">',
-      }).on('shown.bs.popover', function () {
-        var sum = 0;
-        var dict = Object.keys(sessionStorage);
-        for (var i in dict) {
-          var prod = JSON.parse(sessionStorage.getItem(dict[i]));
-          $("#cartrows").append('<div class="row cart-row"><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div>');
-          sum += prod.p * prod.c;
-        }
-        $("#cart-container").append('<div class="row"><div class="col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
-      });
-    </script>
-    {% block script %}
-    {% endblock script %}
-  </body>
+  <!-- Script for shopping cart popover-->
+  <script>
+    $('.popover-dismiss').popover({ trigger: 'focus' });
+    $('#cart').popover({
+      html: true,
+      content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">',
+    }).on('shown.bs.popover', function () {
+      var sum = 0;
+      var dict = Object.keys(sessionStorage);
+      for (var i in dict) {
+        var prod = JSON.parse(sessionStorage.getItem(dict[i]));
+        $("#cartrows").append('<div class="row cart-row"><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div>');
+        sum += prod.p * prod.c;
+      }
+      $("#cart-container").append('<div class="row"><div class="col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
+    });
+  </script>
+  {% block script %}
+  {% endblock script %}
+</body>
 </div>
 
 {% block footer %}
