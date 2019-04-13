@@ -4,7 +4,7 @@
 		<div class="Image">
 			<h2><strong>Artifact: {{product.artifact}}</strong></h2>
 			<!-- <img src="#imagesrc" alt="Indigo Image" /> -->
-			<img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Indigo_cake.jpg" style="width:100%" alt="Indigo Image" />
+			<img src="{{product.image}}" style="width:100%" alt="Indigo Image" />
 			<p><span class="text"><strong>Collection:</strong></span> <a
 					href="{{product.link}}">{{product.collection}}</a>
 				<p><span class="text"><strong>License: </strong></span> <a href="#link2">{{product.license}}</a></p>
@@ -21,11 +21,11 @@
 		</div>
 		<div class="Description">
 			<h4><strong>Product Description</strong></h4>
-			<p>{{product.description|slice:"1:-1"}}</p>
+			<p>{{product.description}}</p>
 			<!-- <p><span class="text"><strong>Citation: </strong></span> Feeser, Andrea. <span class="title">Red,
 					White, and Black Make Blue : Indigo in the Fabric of Colonial South Carolina Life.</span> Athens,
 				GA, USA: University of Georgia Press, 2013; <span class="title"></span> </p> -->
-				<p><span class="text"><strong>Citation: </strong></span>TODO: wait for populate_db</p>
+				<p><span class="text"><strong>Citation: </strong></span>TODO:Citations</p>
 			<h4><strong>Product Variations</strong></h4>
 			<p>{{product.analytics}}</p>
 		</div>

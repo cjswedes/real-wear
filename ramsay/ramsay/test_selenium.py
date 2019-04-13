@@ -84,3 +84,11 @@ class MySeleniumTests(LiveServerTestCase):
         s = sel.find_element_by_css_selector('.text-danger').text
         self.assertEquals(3, q, "quantity should be 3")
         self.assertEquals(s, "$"+str(p*q), "subtotal should be $3*8.41 = $25.23")
+
+    def test_search_title(self):
+        sel = self.selenium
+        sel.get("http://127.0.0.1:8000")
+        sel.find_element_by_css_selector('#keywords').send_keys("indigo")
+        sel.find_element_by_css_selector('#search').click()
+        title = sel.find_element_by_css_selector('div.container:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h5:nth-child(1)').text
+        self.assertEquals('Indigo', title)

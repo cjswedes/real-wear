@@ -94,7 +94,7 @@ class ProductTest(TestCase):
 		# img = SimpleUploadedFile(name='Home.jpg', content=open(os.getcwd()+"/static/images/", 'rb').read(), content_type='image/jpeg')
 		mat = "fake material"
 		dim = "10x10x10"
-		orig = "fake origin"
+		prod_city = "Madison"
 		col = "fake collection"
 		lnk = "fake link"
 		origdesc = "orign descript"
@@ -114,12 +114,12 @@ class ProductTest(TestCase):
 
 		prod = Product.objects.create(
 			title=ttle, title_slug=tslg, artifact=art, #image=img,
-			materials=mat, dimensions=dim, origin=orig, collection=col,
+			materials=mat, dimensions=dim, production_city=prod_city, collection=col,
 			link=lnk, origin_description=origdesc, production_country=prodctry,
-			production_detail=proddetl, materials_location=matloc, 
-			description=desc, license=lic, license_link=liclnk, original_price=origprc,
-			modern_pounds=modpd, modern_dollars=moddol, page=pg, quantity=qty,
-			category=cat )
+			#production_detail=proddetl, 
+			materials_location=matloc, description=desc, license=lic, license_link=liclnk, 
+			original_price=origprc, modern_pounds=modpd, modern_dollars=moddol, page=pg, 
+			quantity=qty, category=cat )
 			
 		self.assertEqual(ttle, prod.title)
 		self.assertEqual(tslg, prod.title_slug)
@@ -127,12 +127,12 @@ class ProductTest(TestCase):
 		# self.assertEqual(img, prod.image)
 		self.assertEqual(mat, prod.materials)
 		self.assertEqual(dim, prod.dimensions)
-		self.assertEqual(orig, prod.origin)
+		self.assertEqual(prod_city, prod.production_city)
 		self.assertEqual(col, prod.collection)
 		self.assertEqual(lnk, prod.link)
 		self.assertEqual(origdesc, prod.origin_description)
 		self.assertEqual(prodctry, prod.production_country)
-		self.assertEqual(proddetl, prod.production_detail)
+		# self.assertEqual(proddetl, prod.production_detail)
 		self.assertEqual(matloc, prod.materials_location)
 		self.assertEqual(desc, prod.description)
 		self.assertEqual(lic, prod.license)
