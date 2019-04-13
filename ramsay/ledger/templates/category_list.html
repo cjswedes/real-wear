@@ -95,8 +95,8 @@
                                         Used to be: {{product.original_price}}<br>
                                         <h4>${{product.modern_dollars}}</h4>
                                         <div class="row">
-                                            <a class="btn btn-primary mr-1 mt-1" id="btn-{{product.title_slug}}"
-                                                data-toggle="collapse" role="button"
+                                            <a class="btn btn-primary mr-1 mt-1 viewdetails"
+                                                id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
                                                 href="{% url 'product-detail' selected product.title_slug %}"
                                                 onclick="getDetails('{{product.title_slug}}')">
                                                 <i class="fas fa-chevron-down"></i>
