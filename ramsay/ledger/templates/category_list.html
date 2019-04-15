@@ -34,7 +34,7 @@
 
 
 {% block style %}
-<style> 
+<style>
 </style>
 {% endblock style %}
 
@@ -88,77 +88,95 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5>{{ product.title }}</h5>
-                                        <hr></hr>
+                                        <hr>
+                                        </hr>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-8">
-                                        <div class="px-2 d-flex flex-row justify-content-between">
-                                            <p>
-                                                Materials
-                                            </p>
-                                            <p>
-                                                {{product.materials}}  
-                                            </p>
+                                    <div class="col-3">
+                                        <!-- justify-content-between -->
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                Materials: &nbsp;
+                                            </div>
                                         </div>
-                                        <div class="px-2 d-flex flex-row justify-content-between">
-                                            <p>
-                                                Dimensions
-                                            </p>
-                                            <p>
-                                                {{product.dimensions}}  
-                                            </p>
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                Dimensions: &nbsp;
+                                            </div>
                                         </div>
-                                        <div class="px-2 d-flex flex-row justify-content-between">
-                                            <p>
-                                                Date
-                                            </p>
-                                            <p>
-                                                {{product.date}}  
-                                            </p>
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                Date: &nbsp;
+                                            </div>
                                         </div>
-                                        <div class="px-2 d-flex flex-row justify-content-between">
-                                            <p>
-                                                Origin
-                                            </p>
-                                            <p>
-                                                {{product.origin}}  
-                                            </p>
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                Origin: &nbsp;
+                                            </div>
                                         </div>
                                         <!-- materials: {{product.materials}}<br>
                                         dimensions: {{product.dimensions}}<br>
                                         date: {{product.date}}<br>
                                         origin: {{product.origin}}-->
                                     </div>
-                                    <div class="col-4 flex-column ">
+                                    <div class="col-3">
+                                        <!-- justify-content-between -->
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                {{product.materials}}
+                                            </div>
+                                        </div>
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                {{product.dimensions}}
+                                            </div>
+                                        </div>
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                TODO: empty {{product.date}}
+                                            </div>
+                                        </div>
+                                        <div class="px-2 d-flex flex-row justify-content-start">
+                                            <div>
+                                                TODO: empty {{product.origin}}
+                                            </div>
+                                        </div>
+                                        <!-- materials: {{product.materials}}<br>
+                                            dimensions: {{product.dimensions}}<br>
+                                            date: {{product.date}}<br>
+                                            origin: {{product.origin}}-->
+                                    </div>
+                                    <div class="col-3 ml-auto">
                                         <div>
-                                            <div class="d-flex flex-row justify-content-between">
-                                                <p> Original price </p>
+                                            <div class="d-flex flex-row justify-content-end">
+                                                <p> Original price: &nbsp;</p>
 
                                                 <p> {{product.original_price}} </p>
                                             </div>
                                             <div class="d-flex flex-row justify-content-end">
-                                                
+
                                                 <h4>${{product.modern_dollars}} </h4>
                                             </div>
                                         </div>
                                         <!--Used to be: {{product.original_price}}<br>
                                         <h4>${{product.modern_dollars}}</h4> -->
-                                        <div class="row justify-content-end">
-                                            <a class="btn btn-primary mr-1 mt-1 viewdetails"
-                                                id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
-                                                href="{% url 'product-detail' selected product.title_slug %}"
-                                                onclick="getDetails('{{product.title_slug}}')">
-                                                <i class="fas fa-chevron-down"></i>
-                                                View Details
-                                            </a>
-                                            <a class="btn btn-primary mt-1 addtocart" id="addtocart"
-                                                data-toggle="popover" data-placement="right"
-                                                data-content='{{product.title}} Added to Cart' href="#/"
-                                                onclick="additem('{{product.title_slug}}','{{product.title}}','{{product.modern_dollars}}');">
-                                                <i class="fas fa-cart-plus"></i> Add to Cart</a>
+                                        <div class="d-flex flex-row justify-content-end">
+                                            <div class="row justify-content-center">
+                                                <a class="btn btn-primary ml-2 mt-1 viewdetails"
+                                                    id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
+                                                    href="{% url 'product-detail' selected product.title_slug %}"
+                                                    onclick="getDetails('{{product.title_slug}}')">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                    View Details
+                                                </a>
+                                                <a class="btn btn-primary ml-2 mt-1 addtocart" id="addtocart"
+                                                    data-toggle="popover" data-placement="bottom"
+                                                    data-content='{{product.title}} Added to Cart' href="#/"
+                                                    onclick="additem('{{product.title_slug}}','{{product.title}}','{{product.modern_dollars}}');">
+                                                    <i class="fas fa-cart-plus"></i> Add to Cart</a>
+                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="row">

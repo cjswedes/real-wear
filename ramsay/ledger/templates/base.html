@@ -47,7 +47,7 @@
 
     .sticky {
       position: fixed;
-      top : 0;
+      top: 0;
       width: 100%;
     }
   </style>
@@ -73,7 +73,8 @@
   </header>
   {% endblock header %}
 
-  <nav class="navbar navbar-expand-lg navbar-dark align-items-start justify-content-between" style="background-color:#c5050c; font-weight: bold; z-index:9999;" id="navbar">
+  <nav class="navbar navbar-expand-lg navbar-dark align-items-start justify-content-between"
+    style="background-color:#c5050c; font-weight: bold; z-index:9999;" id="navbar">
     <div class="flex-row">
       <button class="navbar-toggler flex-row" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +123,8 @@
       </li>
       <li class="nav-item">
         <button id="cart" type="button" class="nav-item btn btn-outline-secondary my-0 my-lg-0" data-toggle="popover"
-          data-trigger="focus" data-placement="bottom">
+          data-placement="bottom">
+          <!-- data-trigger="focus" -->
           <i class="fas fa-shopping-cart"></i>
         </button>
       </li>
@@ -157,16 +159,16 @@
       var sum = 0; var dict = Object.keys(sessionStorage); for (var i in
         dict) {
         var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" ><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div > ');
-      sum += prod.p * prod.c;
+        sum += prod.p * prod.c;
       }
-      $("#cart-container").append('<div class="row">< div class= "col" ></div ><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div ></div> ');
+      $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div> ');
     });
 
     var navbar = document.getElementById("navbar");
     var sticky = navbar.offsetTop
 
-    window.onscroll = function() {
-      if( window.pageYOffset >= sticky ) {
+    window.onscroll = function () {
+      if (window.pageYOffset >= sticky) {
         navbar.classList.add('sticky')
       } else {
         navbar.classList.remove('sticky')
