@@ -26,10 +26,10 @@ urlpatterns = [
     #url(r'^$',views.home),
     #url('visual', views.visual),
     #url('about', views.about)
-    path('', TemplateView.as_view(template_name="home.html")),
-    path('visual/', TemplateView.as_view(template_name="visual.html")),
-    path('bydept/', TemplateView.as_view(template_name="by_dept.html")),
-    path('about/', TemplateView.as_view(template_name="about.html")),
+    path('', TemplateView.as_view(template_name="home.html"), name="home"),
+    path('visual/', TemplateView.as_view(template_name="visual.html"), name="visual"),
+    path('bydept/', TemplateView.as_view(template_name="by_dept.html"), name="bydept"),
+    path('about/', TemplateView.as_view(template_name="about.html"), name="about"),
     path('categories/', views.CategoryListView.as_view(), name="category-list"),
     path('categories/<str:category_name>/', views.CategoryListView.as_view(), name="category-list-single"),
 

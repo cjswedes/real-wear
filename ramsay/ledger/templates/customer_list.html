@@ -4,46 +4,51 @@
 {% block content%}
 
 <div class="container">
-    <div class="d-flex flex-column" id="full_table">
+    <div class="d-flex flex-column p-2" id="full_table">
         <div class="d-flex flex-row" id="header">
 
             <h1> List of Customers </h1>
         </div>
-
-        {% if customers %}
-            <table class="table click-table" id="courses">
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            First Name
-                        </th>
-                        <th scope="col">
-                            Last Name
-                        </th>
-                        <th scope="col">
-                            Occupation
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for customer in customers %}
-                        <tr>
-                            <td class="row" >
-                                {{customer.first_name}}
-                            </td>
-                            <td>
-                                {{customer.last_name}}
-                            </td>
-                            <td> 
-                                {{customer.occupation}}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p> No customers found. </p>
-        {% endif %}
+        <div class="flex-row">
+            <div class="p-2"></div>
+            <div class="flex-column">
+                {% if customers %}
+                    <table class="table click-table" id="courses">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    First Name
+                                </th>
+                                <th scope="col">
+                                    Last Name
+                                </th>
+                                <th scope="col">
+                                    Occupation
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for customer in customers %}
+                                <tr>
+                                    <td class="row" >
+                                        {{customer.first_name}}
+                                    </td>
+                                    <td>
+                                        {{customer.last_name}}
+                                    </td>
+                                    <td> 
+                                        {{customer.occupation}}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p> No customers found. </p>
+                {% endif %}
+            </div>
+            <div class="p-2"></div>
+        </div>
     </div>
 </div>
 {% endblock content%}

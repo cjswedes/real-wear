@@ -18,5 +18,5 @@ from django.urls import path, include
 from .views import GlobeListView
 
 urlpatterns = [
-    path('globe/', GlobeListView.as_view(template_name="globe/globe.html"), name='globe-list-view'),
+    path('globe/', GlobeListView.as_view(template_name="globe/globe.html"), name='globe-list'),
 ]
