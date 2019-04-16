@@ -31,13 +31,20 @@
 </script>
 
 {% endblock script %}
+
+
+{% block style %}
+<style> 
+</style>
+{% endblock style %}
+
 {% block content%}
 
 <div class="container">
 
     <div class="row collapse-group">
         <div class='col-2'>
-            <div class="list-group">
+            <div class="list-group mt-4" id='sidebar'>
                 {% if categories %}
                 <div class="list-group list-group-root well">
                     {% if selected is None %}
@@ -81,19 +88,63 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5>{{ product.title }}</h5>
+                                        <hr></hr>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-9">
-                                        materials: {{product.materials}}<br>
+                                    <div class="col-8">
+                                        <div class="px-2 d-flex flex-row justify-content-between">
+                                            <p>
+                                                Materials
+                                            </p>
+                                            <p>
+                                                {{product.materials}}  
+                                            </p>
+                                        </div>
+                                        <div class="px-2 d-flex flex-row justify-content-between">
+                                            <p>
+                                                Dimensions
+                                            </p>
+                                            <p>
+                                                {{product.dimensions}}  
+                                            </p>
+                                        </div>
+                                        <div class="px-2 d-flex flex-row justify-content-between">
+                                            <p>
+                                                Date
+                                            </p>
+                                            <p>
+                                                {{product.date}}  
+                                            </p>
+                                        </div>
+                                        <div class="px-2 d-flex flex-row justify-content-between">
+                                            <p>
+                                                Origin
+                                            </p>
+                                            <p>
+                                                {{product.origin}}  
+                                            </p>
+                                        </div>
+                                        <!-- materials: {{product.materials}}<br>
                                         dimensions: {{product.dimensions}}<br>
                                         date: {{product.date}}<br>
-                                        origin: {{product.origin}}
+                                        origin: {{product.origin}}-->
                                     </div>
-                                    <div class="col-3">
-                                        Used to be: {{product.original_price}}<br>
-                                        <h4>${{product.modern_dollars}}</h4>
-                                        <div class="row">
+                                    <div class="col-4 flex-column ">
+                                        <div>
+                                            <div class="d-flex flex-row justify-content-between">
+                                                <p> Original price </p>
+
+                                                <p> {{product.original_price}} </p>
+                                            </div>
+                                            <div class="d-flex flex-row justify-content-end">
+                                                
+                                                <h4>${{product.modern_dollars}} </h4>
+                                            </div>
+                                        </div>
+                                        <!--Used to be: {{product.original_price}}<br>
+                                        <h4>${{product.modern_dollars}}</h4> -->
+                                        <div class="row justify-content-end">
                                             <a class="btn btn-primary mr-1 mt-1 viewdetails"
                                                 id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
                                                 href="{% url 'product-detail' selected product.title_slug %}"
