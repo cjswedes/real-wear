@@ -4,6 +4,10 @@ import pandas
 
 from django.core.files import File
 import os
+import random
+
+
+
 
 class Command(BaseCommand):
     #args = '<foo bar ...>'
@@ -16,6 +20,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         ledger_df = pandas.read_csv('ledger/data/example_ledger.csv', encoding='latin1')
         fake = options['debug']
+
+        customer_choices = ['chef', 'landowner', 'slave', 'merchant', 'blacksmith', 'farmer', 'tailor']
+
         for index, entry in ledger_df.iterrows():
             if fake:
                 print("row: %d" % index)
@@ -27,9 +34,12 @@ class Command(BaseCommand):
             # TODO: there could possibly be more citations, but this script isnt checking them
             # fields: book2 author2, publisher2
 
+
+
+
             customer = Customer(first_name=entry['customer'].split(' ')[0],
                                 last_name=entry['customer'].split(' ')[1],
-                                occupation='baker')
+                                occupation=random.choice(customer_choices))
             pcoord = str(entry['ProductionCoordinates'])
             mcoord = str(entry['MaterialsCoordinates'])
             if pcoord == 'nan':
