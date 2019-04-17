@@ -50,6 +50,13 @@
       top: 0;
       width: 100%;
     }
+
+    .btn-sm{
+      transform: scale(0.7);
+      margin-top: -5px;
+    }
+
+
   </style>
   {% block style %}
   {% endblock style %}
@@ -150,24 +157,47 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 
-  <!-- Script for shopping cart popover-->
   <script>
+    function add(i){
+      var dict = Object.keys(sessionStorage); 
+      var prod = JSON.parse(sessionStorage.getItem(dict[i]));
+      console.log("add called on " + prod.t);
+      prod.c += 1;
+      sessionStorage.setItem(dict[i], JSON.stringify(prod));
+      $("#quant-"+i).html(prod.c);
+    };
+
+    function minus(i){
+      var dict = Object.keys(sessionStorage); 
+      var prod = JSON.parse(sessionStorage.getItem(dict[i]));
+      console.log("add called on " + prod.t);
+      prod.c -= 1;
+      if(prod.c <= 0){
+        console.log("TODO: remove this row.");
+      }
+      else{
+        sessionStorage.setItem(dict[i], JSON.stringify(prod));
+        $("#quant-"+i).html(prod.c);
+      }
+    };
+
+    // Script for shopping cart popover
     $(' .popover-dismiss').popover({ trigger: 'focus' }); $('#cart').popover({
       html: true,
       content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">'
       ,
     }).on('shown.bs.popover', function () {
-      var sum = 0; var dict = Object.keys(sessionStorage); for (var i in
-        dict) {
-        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" ><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div > ');
+      var sum = 0; var dict = Object.keys(sessionStorage); 
+      for (var i in dict) {
+        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" ><div class="col">' + prod.t + '</div><div class="col row text-right"><button class="btn-secondary btn-sm" onclick="minus('+i+')"><i class="fas fa-minus"></i></button><div class="col" id="quant-'+i+'">' + prod.c + '</div> <button class="btn-secondary btn-sm" onclick="add('+i+')"><i class="fas fa-plus"></i></button><div class="col">' + prod.p + '</div></div></div > ');
         sum += prod.p * prod.c;
       }
       $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div> ');
     });
 
+    // sticky nav bar
     var navbar = document.getElementById("navbar");
     var sticky = navbar.offsetTop
-
     window.onscroll = function () {
       if (window.pageYOffset >= sticky) {
         navbar.classList.add('sticky')
