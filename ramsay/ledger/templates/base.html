@@ -159,26 +159,40 @@
 
   <script>
     function add(i){
-      var dict = Object.keys(sessionStorage); 
+      var dict = Object.keys(sessionStorage);
       var prod = JSON.parse(sessionStorage.getItem(dict[i]));
-      console.log("add called on " + prod.t);
       prod.c += 1;
       sessionStorage.setItem(dict[i], JSON.stringify(prod));
       $("#quant-"+i).html(prod.c);
+      $(".text-danger").html('$'+(parseFloat($(".text-danger").text().split('$')[1]) + parseFloat(prod.p)).toFixed(2));
     };
 
     function minus(i){
       var dict = Object.keys(sessionStorage); 
       var prod = JSON.parse(sessionStorage.getItem(dict[i]));
-      console.log("add called on " + prod.t);
+
       prod.c -= 1;
       if(prod.c <= 0){
-        console.log("TODO: remove this row.");
+        sessionStorage.removeItem(dict[i]);
+        $("#cartrow-"+i).remove();
+        var cartrows = $("#cartrows").children();
+        for(var idx = i; idx < cartrows.length; idx++){
+          var row = cartrows[idx];
+          var oldID = row.getAttribute('id').split('-');
+          var newIdx = (parseInt(oldID[1])-1);
+          var newID = oldID[0] + '-' + newIdx;
+          row.setAttribute('id', newID);
+          $("#"+ newID + " > div:nth-child(2) > button:nth-child(1)").attr('onclick', "minus("+newIdx+")");
+          $("#"+ newID + " > div:nth-child(2) > div:nth-child(2)").attr('id', "quant-"+newIdx);
+          $("#"+ newID + " > div:nth-child(2) > button:nth-child(3)").attr('onclick', "add("+newIdx+")");
+        }
+        
       }
       else{
         sessionStorage.setItem(dict[i], JSON.stringify(prod));
         $("#quant-"+i).html(prod.c);
       }
+      $(".text-danger").html('$'+(parseFloat($(".text-danger").text().split('$')[1]) - parseFloat(prod.p)).toFixed(2));
     };
 
     // Script for shopping cart popover
@@ -189,10 +203,10 @@
     }).on('shown.bs.popover', function () {
       var sum = 0; var dict = Object.keys(sessionStorage); 
       for (var i in dict) {
-        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" ><div class="col">' + prod.t + '</div><div class="col row text-right"><button class="btn-secondary btn-sm" onclick="minus('+i+')"><i class="fas fa-minus"></i></button><div class="col" id="quant-'+i+'">' + prod.c + '</div> <button class="btn-secondary btn-sm" onclick="add('+i+')"><i class="fas fa-plus"></i></button><div class="col">' + prod.p + '</div></div></div > ');
+        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" id="cartrow-'+i+'"><div class="col">' + prod.t + '</div><div class="col row text-right"><button class="btn-secondary btn-sm" onclick="minus('+i+')"><i class="fas fa-minus"></i></button><div class="col" id="quant-'+i+'">' + prod.c + '</div> <button class="btn-secondary btn-sm" onclick="add('+i+')"><i class="fas fa-plus"></i></button><div class="col">' + prod.p + '</div></div></div>');
         sum += prod.p * prod.c;
       }
-      $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div> ');
+      $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
     });
 
     // sticky nav bar
