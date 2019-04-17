@@ -27,6 +27,21 @@
         margin: 15px;
         width: 50%;
     }
+
+    .carousel-caption{
+        bottom:-20px;
+        left: 5px;
+    }
+
+/* TODO: Not sure why this is not working. */
+    .carousel-caption .a{
+        color:white;
+    }
+    
+    .carousel-item{
+        padding-bottom:25px;
+    }
+
 </style>
 {% endblock style %}
 
@@ -64,7 +79,7 @@
                 </div>
                 <div class="p-2 displayblock">
                     <!-- border-radius:25px; -->
-                    <div class="row align-items-center m-2" style="background:grey; height:auto; ">
+                    <div class="row align-items-center m-2" style="background:black; height:auto;">
                         <!-- class m-4 -->
                         <div id="carouselExampleIndicators" class="carousel slide flex-col m-1 w-100"
                             data-ride="carousel">
@@ -73,30 +88,52 @@
                                     <div class="carousel-item active">
                                         <img class="d-block w-100" src="{% static 'images/Shoes.jpg' %}"
                                             alt="First slide">
+                                        <div class="carousel-caption text-left text-truncate" >
+                                            <a href="http://emuseum.history.org/view/objects/asitem/items$0040:12049" style="color:white;">Image Courtesy of The Colonial Williamsburg Foundation</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Calico.jpg' %}"
                                             alt="Second slide">
+                                        <div class="carousel-caption text-left text-truncate" >
+                                            <a href="http://www.metmuseum.org/art/collection/search/19004?when=A.D.힭�1800&amp;amp;ft=calico&amp;amp;pg=1&amp;amp;rpp=20&amp;amp;pos=14" style="color:white;">Metropolitan Museum of Art</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Thread.jpg' %}"
                                             alt="Third slide">
+                                        <div class="carousel-caption text-left text-truncate" >
+                                            <a href="http://collections.vam.ac.uk/item/O78858/skein-unknown/" style="color:white;">Victoria &amp; Albert Museum</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Check.jpg' %}"
                                             alt="Fourth slide">
+                                        <div class="carousel-caption text-left text-truncate" >
+                                            <a href="http://emuseum.history.org/view/objects/asitem/items$0040:30921" style="color:white;">Image Courtesy of The Colonial Williamsburg Foundation</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Linen.jpg' %}"
                                             alt="Fifth slide">
+                                        <div class="carousel-caption text-left text-truncate" >
+                                            <a href="http://collections.vam.ac.uk/item/O238478/wrapping-gown-unknown/" style="color:white;">Victoria &amp; Albert Museum</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Pins.jpg' %}"
                                             alt="Sixth slide">
+                                        <div class="carousel-caption text-left text-truncate" >
+                                            <a href="https://www.alexandriava.gov/Archaeology" style="color:white;">Alexandria Archaeology Museum</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Hose.jpg' %}"
                                             alt="Seventh slide">
+                                        <div class="carousel-caption text-left text-truncate" >
+                                            <a href="http://emuseum.history.org/view/objects/asitem/items$0040:31694" 
+                                            style="color:white;">Image Courtesy of The Colonial Williamsburg Foundation</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
