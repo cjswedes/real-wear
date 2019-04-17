@@ -196,7 +196,7 @@
     };
 
     // Script for shopping cart popover
-    $(' .popover-dismiss').popover({ trigger: 'focus' }); $('#cart').popover({
+    $('#cart').popover({
       html: true,
       content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">'
       ,
@@ -208,6 +208,17 @@
       }
       $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
     });
+
+    // TODO: stay open when a row removed.
+    $('body').on('click', function (e) {
+      $('#cart').each(function () {
+          // hide any open popovers when the anywhere else in the body is clicked
+          if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+              $(this).popover('hide');
+          }
+      });
+    });
+
 
     // sticky nav bar
     var navbar = document.getElementById("navbar");
