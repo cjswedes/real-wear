@@ -70,7 +70,7 @@ class Command(BaseCommand):
             product = Product(title=entry['title'],
                     title_slug=entry['self'],
                     artifact=entry['artifact'],
-                    image=File(open(os.path.join('ledger/data/', entry['image']), 'rb')),
+                    image=None, #File(open(os.path.join('ledger/data/', entry['image']), 'rb')),
                     materials=entry['materials'],
                     dimensions=entry['dimensions'],
                     #origin=entry['origin'],

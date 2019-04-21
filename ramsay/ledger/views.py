@@ -68,4 +68,13 @@ class CustomerListView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         customers = Customer.objects.all()
-        return render(request, 'customer_list.html', {'customers' : customers})
+        if 'occupation_name' in kwargs.keys():
+            selected = kwargs['occupation_name']
+            occupations = Customer.objects.filter(occupation=kwargs['occupation_name']).distinct('occupation')\
+                                        .only('first_name', 'last_name', 'occupation')
+        else:
+            selected = None
+            occupations = Customer.objects.distinct('occupation')\
+                                        .only('first_name', 'last_name', 'occupation')
+        
+        return render(request, 'customer_list.html', {'customers' : customers, 'occupations': occupations})
