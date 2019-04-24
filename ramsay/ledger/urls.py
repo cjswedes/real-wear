@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
+from django.conf.urls import handler404, handler500
 
 #from django.conf.urls import url
 from . import views
+
+handler404 = 'views.handler404'
 
 urlpatterns = [
     path('navbar/', TemplateView.as_view(template_name="base.html")),
@@ -41,5 +44,6 @@ urlpatterns = [
     #currently this is never being called
     path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name="product-detail"),
     path('purchase/', TemplateView.as_view(template_name="purchase.html"), name="purchase"),
+
 
 ]

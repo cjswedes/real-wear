@@ -4,7 +4,7 @@ from django.core import serializers
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import Category, Product, Customer
-
+from random import randint
 '''
 # All in Class Based View already
 def navbar(request):
@@ -22,7 +22,16 @@ def about(request):
 def search(request):
     return render(request, 'search_results.html')    
 '''
-
+def handler404(request, exception):
+    message = ["Whoops we must have misplaced this tutorial, please use the search bar above.",
+                "Darn we did it again we put the tutorial is the wrong place sorry, use that sweet search bar above",
+                "What tutorial are you looking for? Tell us in the search bar above."
+                ]
+    context = {
+        'message': message[randint(0,2)]
+    }
+    return render(request, "404.html", context, status=404)
+    
 class CategoryListView(generic.ListView):
     model        = Category
     paginate_by  = 10
