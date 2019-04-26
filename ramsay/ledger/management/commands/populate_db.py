@@ -36,8 +36,10 @@ class Command(BaseCommand):
 
 
 
-
-            customer = Customer(first_name=entry['customer'].split(' ')[0],
+            try:
+                customer = Customer.objects.get(first_name=entry['customer'].split(' ')[0], last_name=entry['customer'].split(' ')[1])
+            except Customer.DoesNotExist:
+                customer = Customer(first_name=entry['customer'].split(' ')[0],
                                 last_name=entry['customer'].split(' ')[1],
                                 occupation=random.choice(customer_choices))
             pcoord = str(entry['ProductionCoordinates'])
