@@ -2,19 +2,6 @@
 {% load static %}
 
 {% block script %}
-<!-- View Details Chevron animation -->
-<style>
-.fa-chevron-down {
-    -moz-transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    transition: all .2s linear;
-}
-.fa-chevron-down.fa-rotate-180 {
-    -moz-transform:rotate(-180deg);
-    -webkit-transform:rotate(-180deg);
-    transform:rotate(-180deg);
-}
-</style>
 <script>
     $('.addtocart').popover().click(function () {
         setTimeout(function () {
@@ -24,7 +11,7 @@
 
     function getDetails(prodtitle) {
         $("#" + prodtitle).collapse("toggle");
-        $("#fa-"+prodtitle).toggleClass("fa-rotate-180");
+        $("#fa-" + prodtitle).toggleClass("fa-rotate-180");
         // TODO: only load on show, collapsible status check not working.
         $("#" + prodtitle).find(".card.card-body").load($("#btn-" + prodtitle).attr("href"));
     };
@@ -41,26 +28,35 @@
             alert("Sorry, your browser does not support shopping cart.\n https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage#Browser_compatibility");
         }
     }
-    
-  
+
+
 
 </script>
-
 {% endblock script %}
 
-
 {% block style %}
+<!-- View Details Chevron animation -->
 <style>
+    .fa-chevron-down {
+        -moz-transition: all .2s linear;
+        -webkit-transition: all .2s linear;
+        transition: all .2s linear;
+    }
+
+    .fa-chevron-down.fa-rotate-180 {
+        -moz-transform: rotate(-180deg);
+        -webkit-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+    }
 </style>
 {% endblock style %}
 
 {% block content%}
-
 <div class="container h-100">
-
     <div class="row collapse-group h-100">
         <div class='col-2 sticky-top'>
-            <div class="list-group mt-4" id='sidebar' style="position: -webkit-sticky;position: sticky;top: 80px;padding: 0px;">
+            <div class="list-group mt-4" id='sidebar'
+                style="position: -webkit-sticky;position: sticky;top: 80px;padding: 0px;">
                 {% if categories %}
                 <div class="list-group list-group-root well">
                     {% if selected is None %}
@@ -168,7 +164,8 @@
                                             <div class="d-flex flex-row justify-content-end">
                                                 <!-- <p> Original price: &nbsp;</p> -->
 
-                                                <s class="text-nowrap" style="color: grey"> {{product.original_price | title}} </s>
+                                                <s class="text-nowrap" style="color: grey">
+                                                    {{product.original_price | title}} </s>
                                             </div>
                                             <div class="d-flex flex-row justify-content-end">
 
@@ -183,7 +180,8 @@
                                                     id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
                                                     href="{% url 'product-detail' selected product.title_slug %}"
                                                     onclick="getDetails('{{product.title_slug}}');">
-                                                    <i class="fas fa-chevron-down mr-2" id="fa-{{product.title_slug}}"></i>
+                                                    <i class="fas fa-chevron-down mr-2"
+                                                        id="fa-{{product.title_slug}}"></i>
                                                     View Details
                                                 </a>
                                                 <a class="btn btn-primary ml-2 mt-1 addtocart" id="addtocart"
@@ -215,5 +213,5 @@
             </div>
         </div>
     </div>
-
-    {% endblock content%}
+</div>
+{% endblock content%}
