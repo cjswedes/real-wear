@@ -176,7 +176,7 @@
                                         <h4>${{product.modern_dollars}}</h4> -->
                                         <div class="d-flex flex-row justify-content-end">
                                             <div class="row justify-content-end">
-                                                <a class="btn btn-primary ml-2 mt-1 viewdetails"
+                                                <a class="btn btn-outline-danger ml-2 mt-1 viewdetails"
                                                     id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
                                                     href="{% url 'product-detail' selected product.title_slug %}"
                                                     onclick="getDetails('{{product.title_slug}}');">
@@ -184,7 +184,7 @@
                                                         id="fa-{{product.title_slug}}"></i>
                                                     View Details
                                                 </a>
-                                                <a class="btn btn-primary ml-2 mt-1 addtocart" id="addtocart"
+                                                <a class="btn btn-outline-danger ml-2 mt-1 addtocart" id="addtocart"
                                                     data-toggle="popover" data-placement="bottom"
                                                     data-content='{{product.title}} Added to Cart' href="#/"
                                                     onclick="additem('{{product.title_slug}}','{{product.title}}','{{product.modern_dollars}}');">

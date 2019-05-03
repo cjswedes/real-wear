@@ -17,13 +17,7 @@
   <meta name="msapplication-config" content="{% static 'favicons/browserconfig.xml'}">
   <meta name="theme-color" content="#ffffff">
   <!-- END FAVICONS -->
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css"
-    integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css"
-    integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
   <!-- CSS for popover shopping-->
   <!-- TODO: move style to separate file -->
   <style>
@@ -107,7 +101,7 @@
               <!-- TODO: change href, link to proper tableau -->
               <a class="dropdown-item" href="{% url 'globe-list'%}">World View</a>
               <a class="dropdown-item" href="/bydept">By Department</a>
-              <a class="dropdown-item" href="#">Statistics</a>
+              <!-- <a class="dropdown-item" href="#">Statistics</a> -->
             </div>
           </li>
           <li class="nav-item">
@@ -144,6 +138,15 @@
   {% block content%}
   {% endblock content%}
   <div class=p-2></div>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Bootstrap CSS Modification -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/custom.css' %}">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css"
+    integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css"
+    integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
   <!-- Required JavaScript for drop down menu and responsive menu-->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <!-- ajax require non-slim jquery -->
@@ -152,7 +155,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-  <!-- TODO: use bootstrap.min.js in static -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
@@ -203,7 +205,7 @@
     }).on('shown.bs.popover', function () {
       var sum = 0; var dict = Object.keys(sessionStorage); 
       for (var i in dict) {
-        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" id="cartrow-'+i+'"><div class="col">' + prod.t + '</div><div class="col row text-right"><button class="btn-secondary btn-sm" onclick="minus('+i+')"><i class="fas fa-minus"></i></button><div class="col" id="quant-'+i+'">' + prod.c + '</div> <button class="btn-secondary btn-sm" onclick="add('+i+')"><i class="fas fa-plus"></i></button><div class="col">' + prod.p + '</div></div></div>');
+        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" id="cartrow-'+i+'"><div class="col">' + prod.t + '</div><div class="col row text-right"><button class="btn-outline-danger btn-sm" onclick="minus('+i+')"><i class="fas fa-minus"></i></button><div class="col" id="quant-'+i+'">' + prod.c + '</div> <button class="btn-outline-danger btn-sm" onclick="add('+i+')"><i class="fas fa-plus"></i></button><div class="col">' + prod.p + '</div></div></div>');
         sum += prod.p * prod.c;
       }
       $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
@@ -237,8 +239,8 @@
 </div>
 
 {% block footer %}
-<footer style="position:fixed; bottom:0; left:0; height:30px; margin-top: 5px; width:100%; background: #282728">
-  <p class="text-center" style="color:#adadad">Feedback: <a href="mailto:asmartin@wisc.edu" style="color:#f9f9f9">
+<footer style="position:fixed; bottom:0; left:0; height:24px; margin-top: 5px; width:100%; background: #282728">
+    <p class="text-center" style="color:#adadad; margin-bottom: 0px">Feedback: <a href="mailto:asmartin@wisc.edu" style="color:#f9f9f9">
       asmartin@wisc.edu</a></p>
 </footer>
 {% endblock footer %}
