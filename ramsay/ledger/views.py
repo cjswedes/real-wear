@@ -25,7 +25,7 @@ def search(request):
 
 class CategoryListView(generic.ListView):
     model        = Category
-    paginate_by  = 10
+    paginate_by  = 5  # 5 for testing, TODO: 20? 
     template_name= 'category_list.html'
 
     def get(self, request, *args, **kwargs):

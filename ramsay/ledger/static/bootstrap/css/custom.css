@@ -149,3 +149,12 @@ body {
     text-decoration: none;
     background-color: #9b0000;
   }
+
+  .carousel-caption {
+    bottom: -20px;
+    left: 5px;
+}
+
+.carousel-caption a {
+  color: white;
+}

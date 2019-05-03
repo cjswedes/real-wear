@@ -18,6 +18,7 @@
 
     // Currently using session storage, cart info will be lost when the tab closed.
     function additem(prod, title, price) {
+        console.log("adding " + prod + ' ' + title + ' ' + price);
         if (typeof (Storage) !== "undefined") {
             if (sessionStorage.getItem(prod)) {
                 sessionStorage.setItem(prod, JSON.stringify({ p: price, t: title, c: Number(JSON.parse(sessionStorage.getItem(prod)).c) + 1 }));
@@ -48,6 +49,7 @@
         -webkit-transform: rotate(-180deg);
         transform: rotate(-180deg);
     }
+
 </style>
 {% endblock style %}
 
@@ -56,7 +58,7 @@
     <div class="row collapse-group h-100">
         <div class='col-2 sticky-top'>
             <div class="list-group mt-4" id='sidebar'
-                style="position: -webkit-sticky;position: sticky;top: 80px;padding: 0px;">
+                style="position: -webkit-sticky;position: sticky;top: 30px;padding: 0px;">
                 {% if categories %}
                 <div class="list-group list-group-root well">
                     {% if selected is None %}
@@ -99,7 +101,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <h5>{{ product.title }}</h5>
+                                        <h4>{{ product.title }}</h4>
                                         <hr>
                                         </hr>
                                     </div>
@@ -187,7 +189,7 @@
                                                 <a class="btn btn-outline-danger ml-2 mt-1 addtocart" id="addtocart"
                                                     data-toggle="popover" data-placement="bottom"
                                                     data-content='{{product.title}} Added to Cart' href="#/"
-                                                    onclick="additem('{{product.title_slug}}','{{product.title}}','{{product.modern_dollars}}');">
+                                                    onclick="additem('{{product.title_slug}}','{{product.title|safe}}','{{product.modern_dollars}}');">
                                                     <i class="fas fa-cart-plus mr-2"></i> Add to Cart</a>
                                             </div>
                                         </div>
@@ -209,7 +211,9 @@
                         <p class="list-group-item"> No products found. </p>
                         {% endif %}
                     </div>
-                </div>
+                    <div class="pagination mt-1">
+                        <!-- TODO: Pagination -->
+                    </div>
             </div>
         </div>
     </div>

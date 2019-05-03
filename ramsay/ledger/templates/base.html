@@ -50,6 +50,9 @@
       margin-top: -5px;
     }
 
+    h5 {
+        color: #494949;
+    }
 
   </style>
   {% block style %}
@@ -125,8 +128,6 @@
       <li class="nav-item">
         <button id="cart" type="button" class="nav-item btn btn-outline-secondary my-0 my-lg-0" data-toggle="popover"
           data-placement="bottom">
-          <!-- TODO: put back after debug -->
-          <!-- data-trigger="focus" -->
           <i class="fas fa-shopping-cart"></i>
         </button>
       </li>
@@ -137,9 +138,9 @@
 <body>
   {% block content%}
   {% endblock content%}
-  <div class=p-2></div>
   <!-- Bootstrap CSS CDN -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
   <!-- Bootstrap CSS Modification -->
   <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/custom.css' %}">
 
