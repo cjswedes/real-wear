@@ -186,10 +186,12 @@
                                                         id="fa-{{product.title_slug}}"></i>
                                                     View Details
                                                 </a>
+                                                <!-- NOTE: bug of django? normal title wont work with escapejs, title with single quote wont work without escapejs-->
                                                 <a class="btn btn-outline-danger ml-2 mt-1 addtocart" id="addtocart"
                                                     data-toggle="popover" data-placement="bottom"
                                                     data-content='{{product.title}} Added to Cart' href="#/"
-                                                    onclick="additem('{{product.title_slug}}','{{product.title|safe}}','{{product.modern_dollars}}');">
+                                                    onclick='additem("{{product.title_slug}}","{{product.title}}","{{product.modern_dollars}}")'
+                                                    >
                                                     <i class="fas fa-cart-plus mr-2"></i> Add to Cart</a>
                                             </div>
                                         </div>
