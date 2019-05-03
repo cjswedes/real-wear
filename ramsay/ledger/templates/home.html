@@ -64,9 +64,9 @@
                     </p>
                     <a href="{% url 'about' %}" class="btn btn-outline-danger"> Learn More</a>
                 </div>
-                <div class="p-2 displayblock">
+                <div class="p-2 displayblock d-flex justify-content-around align-items-start">
                     <!-- border-radius:25px; -->
-                    <div class="row align-items-center m-2" style="background:black; height:auto;">
+                    <div class="row align-items-center m-2" style="background:black; max-width:500px;">
                         <!-- class m-4 -->
                         <div id="carouselExampleIndicators" class="carousel slide flex-col m-1 w-100"
                             data-ride="carousel">
@@ -157,17 +157,18 @@
                     <hr>
             </div>
             <div class="d-flex flex-row">
-
+                <!-- TODO: replace download link with file on aws -->
                 <div class="container pb-5">
                     <div class="accordion" id="accordionExample">
                         <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse"
-                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Transcription Instructions
-                                    </button>
-                                </h5>
+                            <div class="card-header d-flex justify-content-between" id="headingOne">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Transcription Instructions
+                                </button>
+                                <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/TranscriptionInstructions2.pdf" target="_blank" download>
+                                    <i class="fas fa-download"></i>
+                                </a>
                             </div>
 
                             <div id="collapseOne" class="collapse collapsed" aria-labelledby="headingOne"
@@ -179,13 +180,14 @@
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0">
+                            <div class="card-header d-flex justify-content-between" id="headingTwo">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                         Comparative Reports
                                     </button>
-                                </h5>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/comp_reports.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
                             </div>
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                                 data-parent="#accordionExample">
@@ -196,14 +198,15 @@
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h5 class="mb-0">
+                            <div class="card-header d-flex justify-content-between" id="headingThree">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree">
                                         Category List
                                     </button>
-                                </h5>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/CATEGORIES.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
                             </div>
                             <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                                 data-parent="#accordionExample">
@@ -214,13 +217,14 @@
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-header" id="headingFour">
-                                <h5 class="mb-0">
+                            <div class="card-header d-flex justify-content-between" id="headingFour">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                         Ramsay Class Final Data Set
                                     </button>
-                                </h5>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/RAMSAYCLASSFINAL_master.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
                             </div>
                             <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
                                 data-parent="#accordionExample">
@@ -233,13 +237,14 @@
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-header" id="headingFive">
-                                <h5 class="mb-0">
+                            <div class="card-header d-flex justify-content-between" id="headingFive">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                         Sample Data Set
                                     </button>
-                                </h5>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/sample_set_master.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
                             </div>
                             <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
                                 data-parent="#accordionExample">
@@ -250,13 +255,14 @@
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-header" id="headingSix">
-                                <h5 class="mb-0">
+                            <div class="card-header d-flex justify-content-between" id="headingSix">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                                         Women's Data Set
                                     </button>
-                                </h5>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/WOMEN_master.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
                             </div>
                             <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
                                 data-parent="#accordionExample">
@@ -267,14 +273,15 @@
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-header" id="headingSeven">
-                                <h5 class="mb-0">
+                            <div class="card-header d-flex justify-content-between" id="headingSeven">
                                     <button class="btn btn-link collapsed" type="button"
                                         data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false"
                                         aria-controls="collapseSeven">
                                         Race Data Set
                                     </button>
-                                </h5>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/RACEDATA.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
                             </div>
                             <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven"
                                 data-parent="#accordionExample">
@@ -299,6 +306,6 @@
 
 {% block script %}
 <script>
-$('.btn-link').on('click', function(){this.scrollIntoView();});
+$('.btn-link').on('click', function(){window.scrollTo(0,document.body.scrollHeight);});
 </script>
 {% endblock script %}
