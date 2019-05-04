@@ -48,6 +48,7 @@
         -webkit-transform: rotate(-180deg);
         transform: rotate(-180deg);
     }
+
 </style>
 {% endblock style %}
 
@@ -56,7 +57,7 @@
     <div class="row collapse-group h-100">
         <div class='col-2 sticky-top'>
             <div class="list-group mt-4" id='sidebar'
-                style="position: -webkit-sticky;position: sticky;top: 80px;padding: 0px;">
+                style="position: -webkit-sticky;position: sticky;top: 30px;padding: 0px;">
                 {% if categories %}
                 <div class="list-group list-group-root well">
                     {% if selected is None %}
@@ -99,7 +100,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <h5>{{ product.title }}</h5>
+                                        <h4>{{ product.title }}</h4>
                                         <hr>
                                         </hr>
                                     </div>
@@ -176,7 +177,7 @@
                                         <h4>${{product.modern_dollars}}</h4> -->
                                         <div class="d-flex flex-row justify-content-end">
                                             <div class="row justify-content-end">
-                                                <a class="btn btn-primary ml-2 mt-1 viewdetails"
+                                                <a class="btn btn-outline-danger ml-2 mt-1 viewdetails"
                                                     id="btn-{{product.title_slug}}" data-toggle="collapse" role="button"
                                                     href="{% url 'product-detail' selected product.title_slug %}"
                                                     onclick="getDetails('{{product.title_slug}}');">
@@ -184,10 +185,16 @@
                                                         id="fa-{{product.title_slug}}"></i>
                                                     View Details
                                                 </a>
-                                                <a class="btn btn-primary ml-2 mt-1 addtocart" id="addtocart"
+                                                <a class="btn btn-outline-danger ml-2 mt-1 addtocart" id="addtocart"
                                                     data-toggle="popover" data-placement="bottom"
                                                     data-content='{{product.title}} Added to Cart' href="#/"
-                                                    onclick="additem('{{product.title_slug}}','{{product.title}}','{{product.modern_dollars}}');">
+                                                    onclick='additem("{{product.title_slug}}","{{product.title|escapejs}}","{{product.modern_dollars}}")'
+                                                    >
+                                                <!-- <a class="btn btn-outline-danger ml-2 mt-1 addtocart" id="addtocart"
+                                                data-toggle="popover" data-placement="bottom"
+                                                data-content='{{product.title}} Added to Cart' href="#/"
+                                                onclick="additem('{{product.title_slug}}','{{product.title|escapejs}}','{{product.modern_dollars}}')"
+                                                > -->
                                                     <i class="fas fa-cart-plus mr-2"></i> Add to Cart</a>
                                             </div>
                                         </div>
@@ -209,7 +216,9 @@
                         <p class="list-group-item"> No products found. </p>
                         {% endif %}
                     </div>
-                </div>
+                    <div class="pagination mt-1">
+                        <!-- TODO: Pagination -->
+                    </div>
             </div>
         </div>
     </div>
