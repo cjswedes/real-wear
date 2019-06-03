@@ -17,13 +17,7 @@
   <meta name="msapplication-config" content="{% static 'favicons/browserconfig.xml'}">
   <meta name="theme-color" content="#ffffff">
   <!-- END FAVICONS -->
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css"
-    integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css"
-    integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
   <!-- CSS for popover shopping-->
   <!-- TODO: move style to separate file -->
   <style>
@@ -50,6 +44,16 @@
       top: 0;
       width: 100%;
     }
+
+    .btn-sm{
+      transform: scale(0.7);
+      margin-top: -5px;
+    }
+
+    h5 {
+        color: #494949;
+    }
+
   </style>
   {% block style %}
   {% endblock style %}
@@ -100,7 +104,7 @@
               <!-- TODO: change href, link to proper tableau -->
               <a class="dropdown-item" href="{% url 'globe-list'%}">World View</a>
               <a class="dropdown-item" href="/bydept">By Department</a>
-              <a class="dropdown-item" href="#">Statistics</a>
+              <!-- <a class="dropdown-item" href="#">Statistics</a> -->
             </div>
           </li>
           <li class="nav-item">
@@ -124,7 +128,6 @@
       <li class="nav-item">
         <button id="cart" type="button" class="nav-item btn btn-outline-secondary my-0 my-lg-0" data-toggle="popover"
           data-placement="bottom">
-          <!-- data-trigger="focus" -->
           <i class="fas fa-shopping-cart"></i>
         </button>
       </li>
@@ -135,7 +138,16 @@
 <body>
   {% block content%}
   {% endblock content%}
-  <div class=p-2></div>
+  <!-- Bootstrap CSS CDN -->
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+  <!-- Bootstrap CSS Modification -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/custom.css' %}">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css"
+    integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css"
+    integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
   <!-- Required JavaScript for drop down menu and responsive menu-->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <!-- ajax require non-slim jquery -->
@@ -144,29 +156,76 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-  <!-- TODO: use bootstrap.min.js in static -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 
-  <!-- Script for shopping cart popover-->
   <script>
-    $(' .popover-dismiss').popover({ trigger: 'focus' }); $('#cart').popover({
+    function add(i){
+      var dict = Object.keys(sessionStorage);
+      var prod = JSON.parse(sessionStorage.getItem(dict[i]));
+      prod.c += 1;
+      sessionStorage.setItem(dict[i], JSON.stringify(prod));
+      $("#quant-"+i).html(prod.c);
+      $(".text-danger").html('$'+(parseFloat($(".text-danger").text().split('$')[1]) + parseFloat(prod.p)).toFixed(2));
+    };
+
+    function minus(i){
+      var dict = Object.keys(sessionStorage); 
+      var prod = JSON.parse(sessionStorage.getItem(dict[i]));
+
+      prod.c -= 1;
+      if(prod.c <= 0){
+        sessionStorage.removeItem(dict[i]);
+        $("#cartrow-"+i).remove();
+        var cartrows = $("#cartrows").children();
+        for(var idx = i; idx < cartrows.length; idx++){
+          var row = cartrows[idx];
+          var oldID = row.getAttribute('id').split('-');
+          var newIdx = (parseInt(oldID[1])-1);
+          var newID = oldID[0] + '-' + newIdx;
+          row.setAttribute('id', newID);
+          $("#"+ newID + " > div:nth-child(2) > button:nth-child(1)").attr('onclick', "minus("+newIdx+")");
+          $("#"+ newID + " > div:nth-child(2) > div:nth-child(2)").attr('id', "quant-"+newIdx);
+          $("#"+ newID + " > div:nth-child(2) > button:nth-child(3)").attr('onclick', "add("+newIdx+")");
+        }
+        
+      }
+      else{
+        sessionStorage.setItem(dict[i], JSON.stringify(prod));
+        $("#quant-"+i).html(prod.c);
+      }
+      $(".text-danger").html('$'+(parseFloat($(".text-danger").text().split('$')[1]) - parseFloat(prod.p)).toFixed(2));
+    };
+
+    // Script for shopping cart popover
+    $('#cart').popover({
       html: true,
       content: '<div id=cart-container class="container"><div class="row"><div class="col"><h5>Shopping Cart</h5></div><div class="col text-right"><div class="row"><div class="col"> Quantity </div><div class="col"> Price </div></div></div></div><hr class="cart-hd-ft"><div id="cartrows"></div><hr class="cart-hd-ft">'
       ,
     }).on('shown.bs.popover', function () {
-      var sum = 0; var dict = Object.keys(sessionStorage); for (var i in
-        dict) {
-        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" ><div class="col">' + prod.t + '</div><div class="col row text-right"><div class="col">' + prod.c + '</div><div class="col">' + prod.p + '</div></div></div > ');
+      var sum = 0; var dict = Object.keys(sessionStorage); 
+      for (var i in dict) {
+        var prod = JSON.parse(sessionStorage.getItem(dict[i])); $("#cartrows").append('<div class= "row cart-row" id="cartrow-'+i+'"><div class="col">' + prod.t + '</div><div class="col row text-right"><button class="btn-outline-danger btn-sm" onclick="minus('+i+')"><i class="fas fa-minus"></i></button><div class="col" id="quant-'+i+'">' + prod.c + '</div> <button class="btn-outline-danger btn-sm" onclick="add('+i+')"><i class="fas fa-plus"></i></button><div class="col">' + prod.p + '</div></div></div>');
         sum += prod.p * prod.c;
       }
-      $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div> ');
+      $("#cart-container").append('<div class="row"><div class= "col"></div><div class="col text-right">Subtotal: <span class="text-danger">$' + sum.toFixed(2) + '</span></div></div></div>');
     });
 
+    // TODO: stay open when a row removed.
+    $('body').on('click', function (e) {
+      $('#cart').each(function () {
+          // hide any open popovers when the anywhere else in the body is clicked
+          if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+              $(this).popover('hide');
+          }
+      });
+    });
+
+
+    // sticky nav bar
     var navbar = document.getElementById("navbar");
     var sticky = navbar.offsetTop
-
     window.onscroll = function () {
       if (window.pageYOffset >= sticky) {
         navbar.classList.add('sticky')
@@ -181,8 +240,8 @@
 </div>
 
 {% block footer %}
-<footer style="position:fixed; bottom:0; left:0; height:30px; margin-top: 5px; width:100%; background: #282728">
-  <p class="text-center" style="color:#adadad">Feedback: <a href="mailto:asmartin@wisc.edu" style="color:#f9f9f9">
+<footer style="position:fixed; bottom:0; left:0; height:24px; margin-top: 5px; width:100%; background: #282728">
+    <p class="text-center" style="color:#adadad; margin-bottom: 0px">Feedback: <a href="mailto:asmartin@wisc.edu" style="color:#f9f9f9">
       asmartin@wisc.edu</a></p>
 </footer>
 {% endblock footer %}

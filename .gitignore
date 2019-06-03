@@ -11,6 +11,7 @@ migrations
 /ramsay/static
 /ramsay/ramsay/static
 .coverage
+htmlcov/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

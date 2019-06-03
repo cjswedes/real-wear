@@ -27,13 +27,15 @@
         margin: 15px;
         width: 50%;
     }
+
+    .carousel-item {
+        padding-bottom: 25px;
+    }
+
 </style>
 {% endblock style %}
 
 {% block content%}
-
-
-
 <div class="d-flex flex-column">
     <div class="p-2 justify-content-center" id="hero">
     </div>
@@ -60,11 +62,11 @@
                         more
                         information on customers and more complex diagnostic analysis of purchases.
                     </p>
-                    <a href="{% url 'about' %}" class="btn btn-outline-dark"> Learn more.</a>
+                    <a href="{% url 'about' %}" class="btn btn-outline-danger"> Learn More</a>
                 </div>
-                <div class="p-2 displayblock">
+                <div class="p-2 displayblock d-flex justify-content-around align-items-start">
                     <!-- border-radius:25px; -->
-                    <div class="row align-items-center m-2" style="background:grey; height:auto; ">
+                    <div class="row align-items-center m-2" style="background:black; max-width:500px;">
                         <!-- class m-4 -->
                         <div id="carouselExampleIndicators" class="carousel slide flex-col m-1 w-100"
                             data-ride="carousel">
@@ -73,30 +75,54 @@
                                     <div class="carousel-item active">
                                         <img class="d-block w-100" src="{% static 'images/Shoes.jpg' %}"
                                             alt="First slide">
+                                        <div class="carousel-caption text-left text-truncate">
+                                            <a href="http://emuseum.history.org/view/objects/asitem/items$0040:12049">Image Courtesy of The Colonial Williamsburg
+                                                Foundation</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Calico.jpg' %}"
                                             alt="Second slide">
+                                        <div class="carousel-caption text-left text-truncate">
+                                            <a href="http://www.metmuseum.org/art/collection/search/19004?when=A.D.힭�1800&amp;amp;ft=calico&amp;amp;pg=1&amp;amp;rpp=20&amp;amp;pos=14">Metropolitan Museum of Art</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Thread.jpg' %}"
                                             alt="Third slide">
+                                        <div class="carousel-caption text-left text-truncate">
+                                            <a href="http://collections.vam.ac.uk/item/O78858/skein-unknown/">Victoria &amp; Albert Museum</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Check.jpg' %}"
                                             alt="Fourth slide">
+                                        <div class="carousel-caption text-left text-truncate">
+                                            <a href="http://emuseum.history.org/view/objects/asitem/items$0040:30921">Image Courtesy of The Colonial Williamsburg
+                                                Foundation</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Linen.jpg' %}"
                                             alt="Fifth slide">
+                                        <div class="carousel-caption text-left text-truncate">
+                                            <a href="http://collections.vam.ac.uk/item/O238478/wrapping-gown-unknown/">Victoria &amp; Albert Museum</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Pins.jpg' %}"
                                             alt="Sixth slide">
+                                        <div class="carousel-caption text-left text-truncate">
+                                            <a href="https://www.alexandriava.gov/Archaeology">Alexandria Archaeology Museum</a>
+                                        </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img class="d-block w-100" src="{% static 'images/Hose.jpg' %}"
                                             alt="Seventh slide">
+                                        <div class="carousel-caption text-left text-truncate">
+                                            <a href="http://emuseum.history.org/view/objects/asitem/items$0040:31694">Image Courtesy of The Colonial Williamsburg
+                                                Foundation</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,37 +152,160 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-row">
-                <div class="container" style="margin-left: 0; padding-left: 0">
-                    <div class="row">
-                        <div class="col-md overflow-auto">
-                            <h5 style="margin-left: 0; padding-left: 0">Downloads</h5>
-                        </div>
-                        <div class="col-md" style="margin-left: 0; padding-bottom: 0"><a href="#">Category List</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- TODO: -->
-                        <!--       2. Host files somewhere, fix link to files-->
-                        <!--       3. Use tooltip for info used to be on documents page -->
-                        <div class="col-md"><a href="#">Transcription Instructions</a></div>
-                        <div class="col-md"><a href="#">Comparative Reports</a></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md"><a href="#">Sample Dataset</a></div>
-                        <div class="col-md"><a href="#">Final Dataset</a></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md"><a href="#">Women Dataset</a></div>
-                        <div class="col-md"><a href="#">Race Dataseet</a></div>
+            <div class="d-flex flex-row">
+                    <h3 style="margin-left: 0; padding-left: 0">Downloads</h3>
+                    <hr>
+            </div>
+            <div class="d-flex flex-row">
+                <!-- TODO: replace download link with file on aws -->
+                <div class="container pb-5">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" id="headingOne">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Transcription Instructions
+                                </button>
+                                <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/TranscriptionInstructions2.pdf" target="_blank" download>
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
 
+                            <div id="collapseOne" class="collapse collapsed" aria-labelledby="headingOne"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    This pdf file gives detailed information on how to transcribe the ledger through the
+                                    <a href="https://transcription.si.edu/"> Smithsonian's Transcription Center</a>.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" id="headingTwo">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Comparative Reports
+                                    </button>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/comp_reports.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    This spreadsheet gives comprehensive lists of all customers, objects, and categories
+                                    as they appear in the four existing data sets.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" id="headingThree">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        Category List
+                                    </button>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/CATEGORIES.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    This list was used to standardize the designation of categories and subcategories
+                                    for common objects in the database.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" id="headingFour">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Ramsay Class Final Data Set
+                                    </button>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/RAMSAYCLASSFINAL_master.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                            </div>
+                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    This is the original data set which was compiled by undergraduate and graduate
+                                    students as part of a 2013 seminar at UW Madison with Dr. Ann Smart Martin. This
+                                    data set reflects an assortment of purchases selected because they were highly
+                                    detailed or were considered important or unusual.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" id="headingFive">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        Sample Data Set
+                                    </button>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/sample_set_master.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                            </div>
+                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    This 10% sample was created by entering all sales of every tenth customer in the
+                                    ledger.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" id="headingSix">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        Women's Data Set
+                                    </button>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/WOMEN_master.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                            </div>
+                            <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    This is a data set of all women customers. The women were identified based on names
+                                    and designated marital status, like Miss or Mrs.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" id="headingSeven">
+                                    <button class="btn btn-link collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false"
+                                        aria-controls="collapseSeven">
+                                        Race Data Set
+                                    </button>
+                                    <a class='btn btn-outline-danger' href="https://ramsay.arthistory.wisc.edu/documents/RACEDATA.xlsx" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                            </div>
+                            <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    This is a data set African American customers. The initial search criteria was for
+                                    customers who were either identified as property or negroes, or identified with only
+                                    one name. A thorough search of the ledger produced only 5 customers grouped together
+                                    on page 233.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
-            <div class="p-3"></div>
         </div>
-    </div>
+        <div class="p-3"></div>
 
 
+{% endblock content%}
 
-    {% endblock content%}
+{% block script %}
+<script>
+$('.btn-link').on('click', function(){window.scrollTo(0,document.body.scrollHeight);});
+</script>
+{% endblock script %}

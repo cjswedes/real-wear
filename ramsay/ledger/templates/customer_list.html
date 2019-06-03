@@ -1,54 +1,128 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block script %}
+<script>
+    function getDetails(i) {
+        $("#collapse-" + i).collapse("toggle");
+        $("#fa-"+i).toggleClass("fa-rotate-180");
+        // TODO: only load on show, collapsible status check not working.
+        // TODO: use actual images
+        $("#collapse-"+i).find(".card.card-body").load("/purchase/")
+    };
+</script>
+{% endblock script %}
+
+{% block style %}
+<!-- View Details Chevron animation -->
+<style>
+    .fa-chevron-down {
+        -moz-transition: all .2s linear;
+        -webkit-transition: all .2s linear;
+        transition: all .2s linear;
+    }
+    .fa-chevron-down.fa-rotate-180 {
+        -moz-transform:rotate(-180deg);
+        -webkit-transform:rotate(-180deg);
+        transform:rotate(-180deg);
+    }
+    .thumbnail-container {
+    overflow-x: scroll;
+    width: 100%;
+    padding: 0 15px;
+    }
+
+    .thumbnail-list {
+        white-space: nowrap;
+        list-style: none;
+    }
+
+    .thumbnail-list li {
+        display: inline-block;
+    }
+
+    .thumbnail-image {
+        display: block;
+        padding: 2px;
+        max-width: 200px;
+        height: auto;
+    }
+</style>
+{% endblock style %}
+
 {% block content%}
+<div class="container h-100">
+        <div class="row collapse-group h-100">
+            <!-- <div class='col-2 sticky-top'>
+                <div class="list-group mt-4" id='sidebar'
+                    style="position: -webkit-sticky;position: sticky;top: 80px;padding: 0px;">
+                    {% if occupations %}
+                    <div class="list-group list-group-root well">
+                        {% if selected is None %}
+                        <a href="{% url 'customer-list' %}" class="list-group-item list-group-item-action active">
+                            View All
+                        </a>
+                        {% else %}
+                        <a href="{% url 'customer-list' %}" class="list-group-item list-group-item-action">
+                            View All
+                        </a>
+                        {% endif %}
 
-<div class="container">
-    <div class="d-flex flex-column p-2" id="full_table">
-        <div class="d-flex flex-row" id="header">
-
-            <h1> List of Customers </h1>
-        </div>
-        <div class="flex-row">
-            <div class="p-2"></div>
-            <div class="flex-column">
-                {% if customers %}
-                    <table class="table click-table" id="courses">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    First Name
-                                </th>
-                                <th scope="col">
-                                    Last Name
-                                </th>
-                                <th scope="col">
-                                    Occupation
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        {% for occ in occupations %}
+                        <a href="{% url 'customer-list-single' occ.occupation %}"
+                            class="list-group-item list-group-item-action not-all">
+                            {{occ.occupation}}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    No occupations found.
+                    {% endif %}
+                </div>
+    
+            </div> -->
+            <div class='col'>
+                <div class="d-flex flex-column col">
+                    <div class="list-group well" id="prodlist" style="padding-top:24px; padding-bottom:40px">
+                        <div class="list-group collapse show" id="{{category.name_slug}}">
                             {% for customer in customers %}
-                                <tr>
-                                    <td class="row" >
-                                        {{customer.first_name}}
-                                    </td>
-                                    <td>
-                                        {{customer.last_name}}
-                                    </td>
-                                    <td> 
-                                        {{customer.occupation}}
-                                    </td>
-                                </tr>
+                            <div class="list-group-item">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5>{{ customer.first_name }} {{customer.last_name}}</h5>
+                                        </div>
+                                        <div class="col">
+                                            {{ customer.occupation }}
+                                        </div>
+                                        <p></p>
+                                        <div class="col d-flex justify-content-end">
+                                            <a class="btn btn-outline-danger"
+                                                id="view-{{forloop.counter}}" data-toggle="collapse" role="button"
+                                                href="#"
+                                                onclick="getDetails('{{forloop.counter}}')">
+                                                <i class="fas fa-chevron-down mr-2"
+                                                    id="fa-{{forloop.counter}}"></i>
+                                                View Purchases
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="collapse pt-2" id="collapse-{{forloop.counter}}" style="width: 100%">
+                                            <div class="card card-body">
+                                                <div class="spinner-border" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             {% endfor %}
-                        </tbody>
-                    </table>
-                {% else %}
-                    <p> No customers found. </p>
-                {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-2"></div>
         </div>
-    </div>
-</div>
+</div> 
 {% endblock content%}
